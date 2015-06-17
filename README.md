@@ -21,12 +21,17 @@ line comment.
 
 _**Script:**_
 ```coldfusion
+<cfscript>
+
 // I'm a comment.
+// Notice that CFScript code within a ".cfm" file must be wrapped in <cfscript> tags.
 
 /*
 I'm a multi-
 line comment.
 */
+
+</cfscript>
 ```
 
 ### Variables
@@ -71,7 +76,6 @@ _**Script:**_
 <cfscript>
 
 // Some simple variable statements in script
-// CFScript code included in a ".cfm" must be wrapped in <cfscript> tags
 
 // Default variable declarations
 

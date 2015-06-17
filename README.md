@@ -17,7 +17,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
  - [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
 4. [Conditionals](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#conditionals)
- - [if / else / else if](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else--else-if)
+ - [if / else if / else](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else-if--else)
 
 ### Comments
 
@@ -212,7 +212,7 @@ y = z ?: "something else";
 
 ### Conditionals
 
-#### if / else / else if
+#### if / else if / else
 
 _**Tags:**_
 ```coldfusion

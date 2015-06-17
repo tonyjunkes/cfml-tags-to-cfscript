@@ -11,11 +11,11 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 1. [Comments](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#comments)
 2. [Variables](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#variables)
 3. [Operators](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#operators)
-	a. [Decision](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#decision)
-	b. [Increment / Decrement](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#increment--decrement)
-	c. [Inline Assignment](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#inline-assignment)
-	d. [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
-	e. [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
+	+ [Decision](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#decision)
+	+ [Increment / Decrement](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#increment--decrement)
+	+ [Inline Assignment](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#inline-assignment)
+	+ [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
+	+ [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
 
 ### Comments
 

@@ -129,7 +129,7 @@ _**Tags:**_
 
 <cfset NOT x>
 <cfset x EQ 1 AND y EQ 2>
-<cfif x EQ 1 OR y EQ 2>
+<cfset x EQ 1 OR y EQ 2>
 
 <!--- Ternary --->
 
@@ -141,6 +141,7 @@ _**Script:**_
 <cfscript>
 
 // Decision
+
 x = 1;
 x = x == 1;
 x = x != 1;
@@ -150,10 +151,14 @@ x = x <= 1;
 x = x >= 1;
 
 // Increment / decrement
+
+// x = x + 1;
 x = x++;
+// x = x - 1;
 x = x--;
 
 // Inline assignment
+
 x += 3;
 x -= 3;
 x /= 3;
@@ -161,6 +166,7 @@ x *= 3;
 x % 3;
 
 // Boolean
+
 x = 1;
 y = 2;
 
@@ -169,10 +175,11 @@ x == 1 && y == 2;
 x == 1 || y == 1;
 
 // Ternary
+
 x = (1 + 1 == 3) ? false : true;
 
 </cfscript>
 ```
 
 ## LICENSE
-> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">CFML Tag to Script Conversions</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://tonyjunkes.com/leave-your-tags-at-the-door-cfml-tag-to-script-conversions" property="cc:attributionName" rel="cc:attributionURL">Tony Junkes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/cfchef/cfml-tag-to-script-conversions" rel="dct:source">https://github.com/cfchef/cfml-tag-to-script-conversions</a>.
+> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">CFML Tag to Script Conversions</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://tonyjunkes.com/leave-your-tags-at-the-door-cfml-tag-to-script-conversions" property="cc:attributionName" rel="cc:attributionURL">Tony Junkes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.

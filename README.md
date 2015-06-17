@@ -9,13 +9,15 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 
 ## Table of Contents
 1. [Comments](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#comments)
-2. [Variables](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#variables)
+2.  [Variables](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#variables)
 3. [Operators](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#operators)
-	+ [Decision](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#decision)
-	+ [Increment / Decrement](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#increment--decrement)
-	+ [Inline Assignment](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#inline-assignment)
-	+ [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
-	+ [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
+ - [Decision](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#decision)
+ - [Increment / Decrement](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#increment--decrement)
+ - [Inline Assignment](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#inline-assignment)
+ - [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
+ - [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
+4. [Conditionals](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#conditionals)
+ - [if / else / else if](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else--else-if)
 
 ### Comments
 
@@ -204,6 +206,38 @@ y = len(x) ? x : "something else";
 
 // Null-Coalescing
 y = z ?: "something else";
+
+</cfscript>
+```
+
+### Conditionals
+
+#### if / else / else if
+
+_**Tags:**_
+```coldfusion
+<cfset count = 10>
+<cfif count GT 20>
+	<cfoutput>#count#</cfoutput>
+<cfelseif count EQ 8>
+	<cfoutput>#count#</cfoutput>
+<cfelse>
+	<cfoutput>#count#</cfoutput>
+</cfif>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+count = 10;
+if (count > 20) {
+	writeOutput(count);
+} else if (count == 8) {
+	writeOutput(count);
+} else {
+	writeOutput(count);
+}
 
 </cfscript>
 ```

@@ -18,6 +18,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
 4. [Conditionals](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#conditionals)
  - [if / else if / else](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else-if--else)
+ - [Switch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#switch)
+ - [Try / Catch / Finally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#try--catch--finally)
 
 ### Comments
 
@@ -237,6 +239,81 @@ if (count > 20) {
 	writeOutput(count);
 } else {
 	writeOutput(count);
+}
+
+</cfscript>
+```
+
+#### Switch
+
+_**Tags:**_
+```coldfusion
+<cfset fruit = "">
+<cfswitch expression="#fruit#">
+    <cfcase value="Apple">
+        <--- Some apple stuff --->
+    </cfcase>
+    <cfcase value="Orange">
+        <--- Some orange stuff --->
+    </cfcase>
+    <cfcase value="Kiwi">
+        <--- Some kiwi stuff --->
+    </cfcase>
+    <cfdefaultcase>
+        <--- Some default stuff --->
+    </cfdefaultcase>
+</cfswitch>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+fruit = "";
+switch (fruit) {
+	case "Apple":
+		// Do apple stuff
+	break;
+	case "Orange":
+		// Do apple stuff
+	break;
+	case "Kiwi":
+		// Do kiwi stuff
+	break;
+	default:
+		// Do default stuff
+	break;
+}
+
+</cfscript>
+```
+
+#### Try / Catch / Finally
+
+_**Tags:**_
+```coldfusion
+<cftry>
+	<cfset x = y + z>
+	<cfcatch type="any">
+		<cfdump var="#cfcatch#">
+	</cfcatch>
+	<cffinally>
+		<cfoutput>Finally at the end.</cfoutput>
+	</cffinally>
+</cftry>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+try {
+	x = y + z;
+} catch(any e) {
+	writeDump(e);
+}
+finally {
+	writeOutput("Finally at the end");
 }
 
 </cfscript>

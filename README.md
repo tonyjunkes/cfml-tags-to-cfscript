@@ -471,7 +471,7 @@ for (item in listToArray(myList, ",")) {
 // By listEach()
 myList.each(function(element, index) {
 	writeOuput(element & " : " & index);
-});
+}, ",");
 
 </cfscript>
 ```

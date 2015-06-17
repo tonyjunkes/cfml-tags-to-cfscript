@@ -11,7 +11,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 
 _**Tags:**_
 ```coldfusion
-<!--- I'm a comment. --->
+<!--- I'm a single-line comment. --->
 
 <!---
 I'm a multi-
@@ -23,7 +23,7 @@ _**Script:**_
 ```coldfusion
 <cfscript>
 
-// I'm a comment.
+// I'm a single-line comment.
 // Notice that CFScript code within a ".cfm" file must be wrapped in <cfscript> tags.
 
 /*
@@ -41,34 +41,13 @@ _**Tags:**_
 <!--- Some simple variable statements in tags --->
 
 <!--- Default variable declarations --->
-
-<cfparam name="pageTitle" default="Tags">
-<cfparam name="pageNumber" type="numeric" default=1>
+<cfparam name="title" default="">
+<cfparam name="views" type="numeric" default=0>
 
 <!--- Regular assignment --->
-
-<cfset page = "#pageTitle# - #pageNumber#">
-
-<cfoutput>#pageTitle# - #pageNumber# : #page#</cfoutput>
-
-<!--- Arrays --->
-
-<cfset jvmLangs = arrayNew(1)>
-<cfset jvmLangs[1] = "CFML">
-<cfset jvmLangs[2] = "Groovy">
-<cfset arrayApend(jvmLangs, "Clojure")>
-<cfoutput>#arrayLen(jvmLangs)#</cfoutput>
-
-<cfdump var="#jvmLangs#">
-
-<!--- Structures --->
-
-<cfset states = structNew()>
-<cfset states.florida = "FL">
-<cfset states["california"] = "CA">
-<cfset structInsert(states, "New York", "NY")>
-
-<cfdump var="#states#">
+<cfset title = "Tags";
+<cfset views = 1;
+<cfset page = "Title: #title#, Number: #views#">
 ```
 
 _**Script:**_
@@ -78,88 +57,32 @@ _**Script:**_
 // Some simple variable statements in script
 
 // Default variable declarations
-
-param name="pageTitle" default="Tags";
-param name="pageNumber" type="numeric" default=1;
+param name="title" default="";
+param name="views" type="numeric" default=0;
 
 // Regular assignment
-
-page = "#pageTitle# - #pageNumber#";
+title = "Script";
+views = 2;
+page = "Title: #title#, Number: #views#";
 // or
-// page = pageTitle & " - " & pageNumber;
-
-writeOutput("#pageTitle# - #pageNumber# : #page#");
-// or
-// writeOutput(pageTitle & " - " & pageNumber & " : " & page);
-
-// Arrays
-
-// Instead of jvmLangs = arrayNew(1);
-// We can use a implicit array
-jvmLangs = [];
-jvmLangs[1] = "CFML">
-jvmLangs[2] = "Groovy">
-// Many modern CFML functions are now also member functions
-// So arrayAppend(jvmLangs, "Clojure"); is now
-jvmLangs.append("Clojure");
-
-writeDump(jvmLangs);
-
-// Structures
-
-// Instead of states = structNew();
-// We can use a implicit struct
-states = {};
-states.florida = "FL";
-states["california"] = "CA";
-// structInsert(states, "New York", "NY");
-states.insert("New York", "NY");
-
-writeDump(states);
+page = "Title: " & title & ", " & "Number: " & views;
 
 </cfscript>
 ```
 
 ### Operators
 
+#### Decision
+
 _**Tags:**_
 ```coldfusion
-<!--- Decision --->
-
 <cfset x = 1>
-<cfset x = x EQ 1>
-<cfset x = x NEQ 1>
-<cfset x = x LT 1>
-<cfset x = x GT 1>
-<cfset x = x LTE 1>
-<cfset x = x GTE 1>
-
-<!--- Increment / decrement --->
-
-<cfset x = x + 1>
-<cfset x = x - 1>
-
-<!--- Inline assignment --->
-
-<cfset x = x + 3>
-<cfset x = x - 3>
-<cfset x = x / 3>
-<cfset x = x * 3>
-<cfset x = x MOD 1>
-
-
-<!--- Boolean --->
-
-<cfset x = 1>
-<cfset y = 2>
-
-<cfset NOT x>
-<cfset x EQ 1 AND y EQ 2>
-<cfset x EQ 1 OR y EQ 2>
-
-<!--- Ternary --->
-
-<cfset x = (1 + 1 EQ 3) ? false : true>
+<cfset y = x EQ 1>
+<cfset y = x NEQ 1>
+<cfset y = x LT 1>
+<cfset y = x GT 1>
+<cfset y = x LTE 1>
+<cfset y = x GTE 1>
 ```
 
 _**Script:**_
@@ -169,43 +92,108 @@ _**Script:**_
 // All tag based operators still work in script
 // There are also these equivalents
 
-// Decision
-
 x = 1;
-x = x == 1;
-x = x != 1;
-x = x < 1;
-x = x > 1;
-x = x <= 1;
-x = x >= 1;
+y = x == 1;
+y = x != 1;
+y = x < 1;
+y = x > 1;
+y = x <= 1;
+y = x >= 1;
 
-// Increment / decrement
+</cfscript>
+```
 
-// x = x + 1;
-x = x++;
-// x = x - 1;
-x = x--;
+#### Increment / Decrement
 
-// Inline assignment
+_**Tags:**_
+```coldfusion
+<cfset x = x + 1>
+<cfset x = x - 1>
+```
 
+_**Script:**_
+```coldfusion
+<cfscript>
+
+x = x++; // x = x + 1;
+x = x--; // x = x - 1;
+
+</cfscript>
+```
+
+#### Inline Assignment
+
+_**Tags:**_
+```coldfusion
+<cfset x = x + 3>
+<cfset x = x - 3>
+<cfset x = x / 3>
+<cfset x = x * 3>
+<cfset x = x % 1>
+<!--- or --->
+<cfset x = x MOD 1>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// x = x + 3;
 x += 3;
+// x = x - 3;
 x -= 3;
+// x = x / 3;
 x /= 3;
+// x = x * 3;
 x *= 3;
+//x = x % 3;
 x % 3;
 
-// Boolean
+</cfscript>
+```
 
-x = 1;
-y = 2;
+#### Boolean
+
+_**Tags:**_
+```coldfusion
+<cfset NOT x>
+<cfset x EQ 1 AND y EQ 2>
+<cfset x EQ 1 OR y EQ 2>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
 
 !x;
 x == 1 && y == 2;
 x == 1 || y == 1;
 
-// Ternary
+</cfscript>
+```
 
-x = (1 + 1 == 3) ? false : true;
+#### Ternary & Null-Coalescing
+
+_**Tags:**_
+```coldfusion
+<!--- Ternary --->
+<cfset x = "">
+<cfset y = len(x) ? x : "something else">
+
+<!--- Null-Coalescing --->
+<cfset y = z ?: "something else">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// Ternary
+x = "";
+y = len(x) ? x : "something else";
+
+// Null-Coalescing
+y = z ?: "something else";
 
 </cfscript>
 ```

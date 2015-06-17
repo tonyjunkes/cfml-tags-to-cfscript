@@ -20,6 +20,11 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [if / else if / else](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else-if--else)
  - [Switch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#switch)
  - [Try / Catch / Finally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#try--catch--finally)
+5. [Iterations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#iterations)
+ - [Index Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#index-loop)
+ - [Array Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#array-loop)
+ - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
+ - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
 
 ### Comments
 
@@ -251,16 +256,16 @@ _**Tags:**_
 <cfset fruit = "">
 <cfswitch expression="#fruit#">
     <cfcase value="Apple">
-        <--- Some apple stuff --->
+        <!--- Some apple stuff --->
     </cfcase>
     <cfcase value="Orange">
-        <--- Some orange stuff --->
+        <!--- Some orange stuff --->
     </cfcase>
     <cfcase value="Kiwi">
-        <--- Some kiwi stuff --->
+        <!--- Some kiwi stuff --->
     </cfcase>
     <cfdefaultcase>
-        <--- Some default stuff --->
+        <!--- Some default stuff --->
     </cfdefaultcase>
 </cfswitch>
 ```
@@ -317,6 +322,142 @@ finally {
 }
 
 </cfscript>
+```
+
+### Iterations
+
+#### Index Loop
+
+_**Tags:**_
+```coldfusion
+<cfloop index="i" from="1" to="10">
+	<cfoutput>#i#</cfoutput>
+</cfloop>
+```
+
+_**Script:**_
+```coldfusion
+for (i = 1; i <= 10; i++) {
+	writeOutput(i);
+}
+```
+
+#### Array Loop
+
+_**Tags:**_
+```coldfusion
+<!--- Define our array --->
+<cfset myArray = ["a", "b", "c"]>
+
+<!--- By index --->
+<cfloop index="i" from="1" to="#arrayLen(myArray)#">
+	<cfoutput>#myArray[i]#</cfoutput>
+</cfloop>
+
+<!--- By array --->
+<cfloop index="currentIndex" array="#myArray#">
+	<cfoutput>#currentIndex#</cfoutput>
+</cfloop>
+
+<!--- By arrayEach() --->
+<cfset arrayEach(myArray, function(element, index) {
+	<cfoutput>#element# : #index#</cfoutput>
+})>
+```
+
+_**Script:**_
+```coldfusion
+// Define our array
+myArray = ["a", "b", "c"];
+
+// By index
+// Note the use of the newer member function syntax for arrayLen()
+for (i = 1; i <= myArray.len(); i++) {
+	writeOutput(myArray[i]);
+}
+
+// By array
+for (currentIndex in myArray) {
+	writeOutput(currentIndex);
+}
+
+// By arrayEach()
+myArray.each(function(element, index) {
+	writeOuput(element & " : " & index);
+});
+```
+
+#### Struct Loop
+
+_**Tags:**_
+```coldfusion
+<!--- Define our struct --->
+<cfset myStruct = {name: "Tony", state: "Florida"}>
+
+<!--- By struct --->
+<cfloop item="currentKey" array="#myStruct#">
+	<cfoutput><li>#currentKey# : #myStruct[currentKey]#</li></cfoutput>
+</cfloop>
+
+<!--- By structEach() --->
+<cfset structEach(myStruct, function(key, value) {
+	<cfoutput><li>#key# : #value#</li></cfoutput>
+})>
+```
+
+_**Script:**_
+```coldfusion
+// Define our struct
+myStruct = {name: "Tony", state: "Florida"};
+
+// By struct
+for (currentKey in myStruct) {
+	writeOutput("<li>#currentKey# : #myStruct[currentKey]#</li>");
+}
+
+// By structEach()
+myStruct.each(function(key, value) {
+	writeOutput("<li>#key# : #value#</li>");
+});
+```
+
+#### List Loop
+
+_**Tags:**_
+```coldfusion
+<!--- Define our list --->
+<cfset myList = "a, b, c">
+
+<!--- By list --->
+<cfloop index="item" list="#myList#">
+	<cfoutput>#item#</cfoutput>
+</cfloop>
+
+<!--- By array --->
+<cfloop index="currentIndex" array="#listToArray(myList, ",")#">
+	<cfoutput>#currentIndex#</cfoutput>
+</cfloop>
+
+<!--- By listEach() --->
+<cfset listEach(myList, function(element, index) {
+	<cfoutput>#element# : #index#</cfoutput>
+}, ",")>
+```
+
+_**Script:**_
+```coldfusion
+// Define our list
+myList = "a, b, c";
+
+// By array
+for (item in listToArray(myList, ",")) {
+	writeOutput(item);
+}
+
+// By listEach()
+myList.each(function(element, index) {
+	writeOuput(element & " : " & index);
+});
 ```
 
 ## LICENSE

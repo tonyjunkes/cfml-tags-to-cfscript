@@ -337,9 +337,13 @@ _**Tags:**_
 
 _**Script:**_
 ```coldfusion
+<cfscript>
+
 for (i = 1; i <= 10; i++) {
 	writeOutput(i);
 }
+
+</cfscript>
 ```
 
 #### Array Loop
@@ -367,6 +371,8 @@ _**Tags:**_
 
 _**Script:**_
 ```coldfusion
+<cfscript>
+
 // Define our array
 myArray = ["a", "b", "c"];
 
@@ -385,6 +391,8 @@ for (currentIndex in myArray) {
 myArray.each(function(element, index) {
 	writeOuput(element & " : " & index);
 });
+
+</cfscript>
 ```
 
 #### Struct Loop
@@ -407,6 +415,8 @@ _**Tags:**_
 
 _**Script:**_
 ```coldfusion
+<cfscript>
+
 // Define our struct
 myStruct = {name: "Tony", state: "Florida"};
 
@@ -419,6 +429,8 @@ for (currentKey in myStruct) {
 myStruct.each(function(key, value) {
 	writeOutput("<li>#key# : #value#</li>");
 });
+
+</cfscript>
 ```
 
 #### List Loop
@@ -446,6 +458,8 @@ _**Tags:**_
 
 _**Script:**_
 ```coldfusion
+<cfscript>
+
 // Define our list
 myList = "a, b, c";
 
@@ -458,6 +472,8 @@ for (item in listToArray(myList, ",")) {
 myList.each(function(element, index) {
 	writeOuput(element & " : " & index);
 });
+
+</cfscript>
 ```
 
 ## LICENSE

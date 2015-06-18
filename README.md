@@ -305,16 +305,16 @@ _**Script:**_
 fruit = "";
 switch (fruit) {
 	case "Apple":
-		// Do apple stuff
+		// some apple stuff
 	break;
 	case "Orange":
-		// Do apple stuff
+		// some apple stuff
 	break;
 	case "Kiwi":
-		// Do kiwi stuff
+		// some kiwi stuff
 	break;
 	default:
-		// Do default stuff
+		// some default stuff
 	break;
 }
 
@@ -746,13 +746,13 @@ _**Script:**_
 ```coldfusion
 <cfscript>
 
-qry = new Query().setSQL("
+myQuery = new Query().setSQL("
 	SELECT myCol1, myCol2 FROM myTable
 	WHERE myCol1=:myId
 	ORDER BY myCol1 ASC
 ");
-qry.addParam(name: "myCol1", value: "#myId#", cfsqltype: "cf_sql_integer");
-qry = qry.execute().getResult();
+myQuery.addParam(name: "myCol1", value: "#myId#", cfsqltype: "cf_sql_integer");
+myQuery = myQuery.execute().getResult();
 
 </cfscript>
 ```
@@ -799,7 +799,12 @@ savecontent variable="mailBody" {
 	writeOutput("Your Email Message!!1");
 };
 // Create and populate the mail object
-mailService = new mail(to = "your@email.com", from = "another@email.com", subject = "CFMail Example", body = mailBody);
+mailService = new mail(
+	to = "your@email.com",
+	from = "another@email.com",
+	subject = "CFMail Example",
+	body = mailBody
+);
 // Send
 mailService.send();
 

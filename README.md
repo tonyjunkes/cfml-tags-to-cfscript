@@ -31,6 +31,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfquery](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery)
  - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
  - [cflock, cfthread & cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock-cfthread--cftransaction)
+7. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
+ - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery-query-cfc)
 
 ### Comments
 
@@ -578,13 +580,15 @@ _**Script:**_
 ```coldfusion
 <cfscript>
 
-qry = new Query().setSQL("
-	SELECT myCol1, myCol2 FROM myTable
-	WHERE myCol1=:myId
-	ORDER BY myCol1 ASC
-");
-qry.addParam(name: "id", value: "#myId#", cfsqltype: "cf_sql_integer");
-qry = qry.execute().getResult();
+// Also see the "Tags Implemented as Components" section for another method of using <cfquery> in script
+
+myQuery = queryExecute(
+	"SELECT myCol1, myCol2 FROM myTable
+	WHERE myCol1=?
+	ORDER BY myCol1 ASC",
+	{myid: 5},
+	{datasource = "myDSN"}
+);
 
 </cfscript>
 ```
@@ -661,6 +665,34 @@ transaction {
 	        transaction action="rollback";
 	}
 }
+
+</cfscript>
+```
+
+### Tags Implemented as Components
+
+#### cfquery / query.cfc
+
+_**Tags:**_
+```coldfusion
+<cfquery name="myQuery" datasource="myDSN">
+	SELECT myCol1, myCol2 FROM myTable
+	WHERE myCol1=<cfqueryparam value="#myId#" cfsqlype="cf_sql_integer">
+	ORDER BY myCol1 ASC
+</cfquery>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+qry = new Query().setSQL("
+	SELECT myCol1, myCol2 FROM myTable
+	WHERE myCol1=:myId
+	ORDER BY myCol1 ASC
+");
+qry.addParam(name: "id", value: "#myId#", cfsqltype: "cf_sql_integer");
+qry = qry.execute().getResult();
 
 </cfscript>
 ```

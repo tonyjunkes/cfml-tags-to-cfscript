@@ -581,7 +581,7 @@ location("mypage.cfm", "false", "301");
 </cfscript>
 ```
 
-#### cfinclude, cflocation, cfabort & cfexit
+#### cfabort & cfexit
 
 _**Tags:**_
 ```coldfusion

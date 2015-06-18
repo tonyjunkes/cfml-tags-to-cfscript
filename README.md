@@ -22,7 +22,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Switch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#switch)
  - [Try / Catch / Finally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#try--catch--finally)
 6. [Iterations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#iterations)
- - [Index Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#index-loop)
+ - [General Purpose Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general-purpose-loop)
  - [Array Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#array-loop)
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
@@ -349,7 +349,7 @@ finally {
 
 ### Iterations
 
-#### Index Loop
+#### General Purpose Loop
 
 _**Tags:**_
 ```coldfusion

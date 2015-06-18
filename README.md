@@ -25,6 +25,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Array Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#array-loop)
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
+ - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
+
 
 ### Comments
 
@@ -473,6 +475,37 @@ myList.each(function(element, index) {
 	writeOuput(element & " : " & index);
 }, ",");
 
+</cfscript>
+```
+
+#### Query Loop
+
+_**Tags:**_
+```coldfusion
+<!--- Define our query --->
+<cfset platform = ["Adobe ColdFusion", "Railo", "Lucee"]>
+<cfset myQuery = queryNew("")>
+<cfset column = queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform)>
+
+<!--- By group --->
+<cfloop query="myQuery" group="platform">
+	<cfoutput><li>#platform#</li></cfoutput>
+</cfloop>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// Define our query
+platform = ["Adobe ColdFusion", "Railo", "Lucee"];
+myQuery = queryNew("");
+column = queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform);
+
+// By query
+for (row in myQuery) {
+    writeOutput("<li>#row.platform#</li>");
+}
 </cfscript>
 ```
 

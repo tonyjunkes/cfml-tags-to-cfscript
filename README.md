@@ -28,7 +28,9 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
 6. [Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#misc-tags-to-script)
  - [cfinclude, cflocation, cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude-cflocation-cfabort--cfexit)
-
+ - [cfquery](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery)
+ - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
+ - [cflock, cfthread & cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock-cfthread--cftransaction)
 
 ### Comments
 
@@ -557,6 +559,108 @@ abort "My error message";
 
 // <cfexit>
 exit "method";
+
+</cfscript>
+```
+
+#### cfquery
+
+_**Tags:**_
+```coldfusion
+<cfquery name="myQuery" datasource="myDSN">
+	SELECT myCol1, myCol2 FROM myTable
+	WHERE myCol1=<cfqueryparam value="#myId#" cfsqlype="cf_sql_integer">
+	ORDER BY myCol1 ASC
+</cfquery>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+qry = new Query().setSQL("
+	SELECT myCol1, myCol2 FROM myTable
+	WHERE myCol1=:myId
+	ORDER BY myCol1 ASC
+");
+qry.addParam(name: "id", value: "#myId#", cfsqltype: "cf_sql_integer");
+qry = qry.execute().getResult();
+
+</cfscript>
+```
+
+#### cfsavecontent
+
+_**Tags:**_
+```coldfusion
+<cfsavecontent variable="myContent">
+	<cfoutput>Some content.</cfoutput>
+</cfsavecontent>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+savecontent variable="myContent" {
+	writeOutput("Some content.");
+}
+
+</cfscript>
+```
+
+#### cflock, cfthread & cftransaction
+
+_**Tags:**_
+```coldfusion
+<!--- <cflock> --->
+<cflock timeout="60" scope="session" type="exclusive">
+	<cfset session.myVar = "Hello">
+</cflock>
+
+<!--- <cfthread> --->
+<cfthread action="run" name="myThread">
+	<!--- Do single thread stuff --->
+</cfthread>
+<cfthread action="join" name="myThread,myOtherThread" />
+
+<!--- <cftransaction> --->
+<cftransaction>
+<cftry>
+	<!--- code to run --->
+        <cftransaction action="commit" />
+        <cfcatch type="any">
+        	<cftransaction action="rollback" />
+	</cfcatch>
+</cftry>
+</cftransaction>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// <cflock>
+lock timeout="60" scope="session" type="exclusive" {
+	session.myVar = "Hello";
+}
+
+// <cfthread>
+thread action="run" name="myThread" {
+	// do single thread stuff
+}
+thread action="join" name="myThread,myOtherThread";
+
+// <cftransaction>
+transaction {
+	try {
+		// code to run
+	        transaction action="commit";
+	}
+	catch(any e) {
+	        transaction action="rollback";
+	}
+}
 
 </cfscript>
 ```

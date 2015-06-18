@@ -487,6 +487,11 @@ _**Tags:**_
 <cfset myQuery = queryNew("")>
 <cfset column = queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform)>
 
+<!--- By row index --->
+<cfloop index="i" from="1" to="#myQuery.recordCount#">
+	<cfoutput><li>#myQuery["platform"][i]#</li></cfoutput>
+</cfloop>
+
 <!--- By group --->
 <cfloop query="myQuery" group="platform">
 	<cfoutput><li>#platform#</li></cfoutput>
@@ -501,6 +506,11 @@ _**Script:**_
 platform = ["Adobe ColdFusion", "Railo", "Lucee"];
 myQuery = queryNew("");
 column = queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform);
+
+// By row index
+for (i = 1; i <= myQuery.recordCount; i++) {
+    writeOutput("<li>#myQuery["platform"][i]#</li>");
+}
 
 // By query
 for (row in myQuery) {

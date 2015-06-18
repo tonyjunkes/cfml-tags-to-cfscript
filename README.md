@@ -316,7 +316,8 @@ _**Script:**_
 
 try {
 	x = y + z;
-} catch(any e) {
+}
+catch(any e) {
 	writeDump(e);
 }
 finally {

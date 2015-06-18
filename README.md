@@ -676,7 +676,7 @@ transaction {
 	        transaction action="commit";
 	}
 	catch(any e) {
-	        transaction action="rollback";
+		transaction action="rollback";
 	}
 }
 

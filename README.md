@@ -26,6 +26,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
+6. [Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#misc-tags-to-script)
+ - [<cfinclude>](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
 
 
 ### Comments
@@ -517,6 +519,44 @@ for (i = 1; i <= myQuery.recordCount; i++) {
 for (row in myQuery) {
     writeOutput("<li>#row.platform#</li>");
 }
+
+</cfscript>
+```
+
+### Misc Tags to Script
+
+#### <cfinclude>, <cflocation>, <cfabort> & <cfexit>
+
+_**Tags:**_
+```coldfusion
+<!--- <cfinclude> --->
+<cfinclude template="mypage.cfm">
+
+<!--- <cflocation> --->
+<cflocation url="mypage.cfm" addToken="false" statusCode="301">
+
+<!--- <cfabort> --->
+<cfabort statusError="My error message">
+
+<!--- <cfexit> --->
+<cfexit method="method">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// <cfinclude>
+include "mypage.cfm";
+
+// <cflocation>
+location("mypage.cfm", "false", "301");
+
+// <cfabort>
+abort "My error message";
+
+// <cfexit>
+exit "method";
 
 </cfscript>
 ```

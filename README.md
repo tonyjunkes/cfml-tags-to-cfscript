@@ -18,7 +18,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
  - [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
 5. [Conditionals](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#conditionals)
- - [if / else if / else](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else-if--else)
+ - [If / Else If / Else](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else-if--else)
  - [Switch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#switch)
  - [Try / Catch / Finally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#try--catch--finally)
 6. [Iterations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#iterations)
@@ -247,7 +247,7 @@ y = z ?: "something else";
 
 ### Conditionals
 
-#### if / else if / else
+#### If / Else If / Else
 
 _**Tags:**_
 ```coldfusion
@@ -751,7 +751,7 @@ qry = new Query().setSQL("
 	WHERE myCol1=:myId
 	ORDER BY myCol1 ASC
 ");
-qry.addParam(name: "id", value: "#myId#", cfsqltype: "cf_sql_integer");
+qry.addParam(name: "myCol1", value: "#myId#", cfsqltype: "cf_sql_integer");
 qry = qry.execute().getResult();
 
 </cfscript>

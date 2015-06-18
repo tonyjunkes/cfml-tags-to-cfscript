@@ -525,7 +525,7 @@ for (row in myQuery) {
 
 ### Misc Tags to Script
 
-#### <cfinclude>, <cflocation>, <cfabort> & <cfexit>
+#### cfinclude, cflocation, cfabort & cfexit
 
 _**Tags:**_
 ```coldfusion

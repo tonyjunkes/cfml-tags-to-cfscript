@@ -32,7 +32,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
  - [cflock, cfthread & cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock-cfthread--cftransaction)
 7. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
- - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery-query-cfc)
+ - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
 
 ### Comments
 

@@ -673,7 +673,7 @@ thread action="join" name="myThread,myOtherThread";
 transaction {
 	try {
 		// code to run
-	        transaction action="commit";
+		transaction action="commit";
 	}
 	catch(any e) {
 		transaction action="rollback";

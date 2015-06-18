@@ -27,13 +27,19 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
-7. [Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#misc-tags-to-script)
- - [cfinclude, cflocation, cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude-cflocation-cfabort--cfexit)
+7. [General / Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general--misc-tags-to-script)
+ - [cfinclude](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
+ - [cflocation](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflocation)
+ - [cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfabort--cfexit)
  - [cfquery](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery)
  - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
- - [cflock, cfthread & cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock-cfthread--cftransaction)
+ - [cflock](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock)
+ - [cfthread](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthread)
+ - [cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftransaction)
 8. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
+ - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
+ - [cfmail / mail.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfmail--mailcfc)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -541,18 +547,44 @@ for (row in myQuery) {
 </cfscript>
 ```
 
-### Misc Tags to Script
+### General / Misc Tags to Script
+
+#### cfinclude
+
+_**Tags:**_
+```coldfusion
+<cfinclude template="mypage.cfm">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+include "mypage.cfm";
+
+</cfscript>
+```
+
+#### cflocation
+
+_**Tags:**_
+```coldfusion
+<cflocation url="mypage.cfm" addToken="false" statusCode="301">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+location("mypage.cfm", "false", "301");
+
+</cfscript>
+```
 
 #### cfinclude, cflocation, cfabort & cfexit
 
 _**Tags:**_
 ```coldfusion
-<!--- <cfinclude> --->
-<cfinclude template="mypage.cfm">
-
-<!--- <cflocation> --->
-<cflocation url="mypage.cfm" addToken="false" statusCode="301">
-
 <!--- <cfabort> --->
 <cfabort statusError="My error message">
 
@@ -563,12 +595,6 @@ _**Tags:**_
 _**Script:**_
 ```coldfusion
 <cfscript>
-
-// <cfinclude>
-include "mypage.cfm";
-
-// <cflocation>
-location("mypage.cfm", "false", "301");
 
 // <cfabort>
 abort "My error message";
@@ -627,22 +653,54 @@ savecontent variable="myContent" {
 </cfscript>
 ```
 
-#### cflock, cfthread & cftransaction
+#### cflock
 
 _**Tags:**_
 ```coldfusion
-<!--- <cflock> --->
 <cflock timeout="60" scope="session" type="exclusive">
 	<cfset session.myVar = "Hello">
 </cflock>
+```
 
-<!--- <cfthread> --->
+_**Script:**_
+```coldfusion
+<cfscript>
+
+lock timeout="60" scope="session" type="exclusive" {
+	session.myVar = "Hello";
+}
+
+</cfscript>
+```
+
+#### cfthread
+
+_**Tags:**_
+```coldfusion
 <cfthread action="run" name="myThread">
 	<!--- Do single thread stuff --->
 </cfthread>
-<cfthread action="join" name="myThread,myOtherThread" />
 
-<!--- <cftransaction> --->
+<cfthread action="join" name="myThread,myOtherThread" />
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+thread action="run" name="myThread" {
+	// do single thread stuff
+}
+
+thread action="join" name="myThread,myOtherThread";
+
+</cfscript>
+```
+
+#### cftransaction
+
+_**Tags:**_
+```coldfusion
 <cftransaction>
 <cftry>
 	<!--- code to run --->
@@ -658,18 +716,6 @@ _**Script:**_
 ```coldfusion
 <cfscript>
 
-// <cflock>
-lock timeout="60" scope="session" type="exclusive" {
-	session.myVar = "Hello";
-}
-
-// <cfthread>
-thread action="run" name="myThread" {
-	// do single thread stuff
-}
-thread action="join" name="myThread,myOtherThread";
-
-// <cftransaction>
 transaction {
 	try {
 		// code to run
@@ -707,6 +753,55 @@ qry = new Query().setSQL("
 ");
 qry.addParam(name: "id", value: "#myId#", cfsqltype: "cf_sql_integer");
 qry = qry.execute().getResult();
+
+</cfscript>
+```
+
+#### cfhttp / http.cfc
+
+_**Tags:**_
+```coldfusion
+<cfhttp result="result" method="GET" charset="utf-8" url="https://www.google.com/">
+	<cfhttpparam name="q" type="formfield" value="cfml">
+</cfhttp>
+
+<cfdump var="#result.fileContent#">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+httpService = new http(method = "GET", charset = "utf-8", url = "https://www.google.com/");
+httpService.addParam(name = "q", type = "formfield", value = "cfml");
+result.send().getPrefix()
+
+writeDump(result.fileContent);
+
+</cfscript>
+```
+
+#### cfmail / mail.cfc
+
+_**Tags:**_
+```coldfusion
+<cfmail to="your@email.com" from="another@email.com" subject="CFMail Example">
+	Your Email Message!!1
+</cfmail>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// It's a good idea to build your message inside a save content block first
+savecontent variable="mailBody" {
+	writeOutput("Your Email Message!!1");
+};
+// Create and populate the mail object
+mailService = new mail(to = "your@email.com", from = "another@email.com", subject = "CFMail Example", body = mailBody);
+// Send
+mailService.send();
 
 </cfscript>
 ```

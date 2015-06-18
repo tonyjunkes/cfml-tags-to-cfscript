@@ -35,7 +35,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 8. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
 
-### The <em>Modern</em> Implemetation of Tags to Script
+### The <em>Modern</em> Implementation of Tags to Script
 
 I want to open with this before diving into the meat of conversions. Adobe ColdFusion 11, Railo 3.2(?) and Lucee 4.5 all offer some kind of full script syntax support (Railo & Lucee sharing the implementation). Adobe ColdFusion 11 rolled it's own variation but Railo and Lucee both support ACF's syntax as of versions 4.2 and 4.5 respectively.
 

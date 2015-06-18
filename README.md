@@ -27,7 +27,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
 6. [Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#misc-tags-to-script)
- - [<cfinclude>](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
+ - [cfinclude, cflocation, cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude-cflocation-cfabort--cfexit)
 
 
 ### Comments

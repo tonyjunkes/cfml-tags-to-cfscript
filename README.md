@@ -516,6 +516,7 @@ for (i = 1; i <= myQuery.recordCount; i++) {
 for (row in myQuery) {
     writeOutput("<li>#row.platform#</li>");
 }
+
 </cfscript>
 ```
 

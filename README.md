@@ -37,7 +37,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
  - [cflock](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock)
  - [cfthread](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthread)
- - [cfthrow & rethrow](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthrow--cfrethrow)
+ - [cfthrow & cfrethrow](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthrow--cfrethrow)
  - [cflog](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflog)
  - [cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftransaction)
 8. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)

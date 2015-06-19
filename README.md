@@ -44,6 +44,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
  - [cfmail / mail.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfmail--mailcfc)
+9. [Functions, Components & Interfaces](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#functions-components--interfaces)
+ - [cfinterface](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinterface)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -889,6 +891,26 @@ mailService = new mail(
 mailService.send();
 
 </cfscript>
+```
+
+### Functions, Components & Interfaces
+
+#### cfinterface
+
+_**Tags:**_
+```coldfusion
+<cfinterface displayname="My Interface">
+	<cfunction name="myFunction" returntype="numeric">
+		<cfargument required="true" type="string" name="myArgument">
+	</cffunction>
+</cfinterface>
+```
+
+_**Script:**_
+```coldfusion
+interface displayname="My Interface" {
+	numeric function myFunction(required string myArgument);
+}
 ```
 
 ## LICENSE

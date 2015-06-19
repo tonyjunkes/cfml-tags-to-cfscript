@@ -58,7 +58,7 @@ As per [Adam Cameron's CFScript Documentation](https://github.com/adamcameron/cf
 
 > `result = cfhttp(method="post", url="http://example.com");`
 
-Where the correct way would be `cfhttp(result="result", method="post", url="http://example.com");`.
+Where the correct way would be: `cfhttp(result="result", method="post", url="http://example.com");`
 
 ### Comments
 

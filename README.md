@@ -761,15 +761,6 @@ rethrow;
 </cfscript>
 ```
 
-_**Script:**_
-```coldfusion
-<cfscript>
-
-writeLog(text = "Logging some info.", type = "information", application = "no", file = "myLogFile");
-
-</cfscript>
-```
-
 #### cflog
 
 _**Tags:**_

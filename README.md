@@ -49,16 +49,16 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
-I want to open with this before diving into the meat of conversions. Adobe ColdFusion 11, Railo 3.2(?) and Lucee 4.5 all offer some kind of full script syntax support (Railo & Lucee sharing the implementation). Adobe ColdFusion 11 rolled it's own variation but Railo and Lucee both support ACF's syntax as of versions 4.2 and 4.5 respectively.
+I want to open with this before diving into the depths of conversions. Adobe ColdFusion 11, Railo 3.2(?) and Lucee 4.5 all offer some kind of full script syntax support (Railo & Lucee sharing the implementation) involving <em>near</em> identical syntax between tag-base and script-base. Adobe ColdFusion 11 rolled it's own variation but Railo and Lucee both support ACF's syntax as of versions 4.2 and 4.5 respectively.
 
 As per [Adam Cameron's CFScript Documentation](https://github.com/adamcameron/cfscript/blob/master/cfscript.md#the-rest):
-> To use any other functionality not listed here within CFScript, one needs to use the generalised syntax.
-
 > On Railo/Lucee this is a matter of removing the "`<cf`" and the "`>`", and using normal block syntax (curly braces) where the tag-version is a block-oriented tag.
 
 > On ColdFusion, replace the "`<cftagname`" with "`cftagname(`", and the "`>`" with "`)`", and comma-separate the attributes. Note that this will make the construct look like a function, but it actually is not, and cannot be used like a function, eg this is invalid syntax:
 
 > `result = cfhttp(method="post", url="http://example.com");`
+
+Where the correct way would be `cfhttp(result="result", method="post", url="http://example.com");`.
 
 ### Comments
 

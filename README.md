@@ -28,6 +28,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
 7. [General / Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general--misc-tags-to-script)
+ - [cfoutput](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfoutput)
+ - [cfdump](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdump)
  - [cfinclude](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
  - [cflocation](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflocation)
  - [cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfabort--cfexit)
@@ -35,6 +37,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
  - [cflock](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock)
  - [cfthread](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthread)
+ - [cfthrow & rethrow](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthrow--cfrethrow)
+ - [cflog](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflog)
  - [cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftransaction)
 8. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
@@ -553,6 +557,40 @@ for (row in myQuery) {
 
 _**Tags:**_
 ```coldfusion
+<cfoutput>Some text and a #variable#</cfoutput>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+writeOutput("Some text and a #variable#");
+// or
+writeOutput("Some text and a " & variable);
+
+</cfscript>
+```
+
+#### cfdump
+
+_**Tags:**_
+```coldfusion
+<cfdump var="#cgi#" label="CGI Scope">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+writeDump(var = cgi, label = "CGI Scope");
+
+</cfscript>
+```
+
+#### cfinclude
+
+_**Tags:**_
+```coldfusion
 <cfinclude template="mypage.cfm">
 ```
 
@@ -693,6 +731,57 @@ thread action="run" name="myThread" {
 }
 
 thread action="join" name="myThread,myOtherThread";
+
+</cfscript>
+```
+
+#### cfthrow & cfrethrow
+
+_**Tags:**_
+```coldfusion
+<!--- <cfthrow> --->
+<cfthrow message="Oh no an error!!1" type="RealBadErrorException" detail="Something bad happened in detail">
+
+<!--- <cfrethrow> --->
+<cfrethrow>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// <cfthrow>
+throw(message = "Oh no an error!!1", type = "RealBadErrorException", detail = "Something bad happened in detail");
+// throw() can even be as simple as this...
+throw "Oh no an error!!1";
+
+// <cfrethrow>
+rethrow;
+
+</cfscript>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+writeLog(text = "Logging some info.", type = "information", application = "no", file = "myLogFile");
+
+</cfscript>
+```
+
+#### cflog
+
+_**Tags:**_
+```coldfusion
+<cflog text="Logging some info." type="information" application="no" file="myLogFile">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+writeLog(text = "Logging some info.", type = "information", application = "no", file = "myLogFile");
 
 </cfscript>
 ```

@@ -555,7 +555,7 @@ for (row in myQuery) {
 
 ### General / Misc Tags to Script
 
-#### cfinclude
+#### cfoutput
 
 _**Tags:**_
 ```coldfusion

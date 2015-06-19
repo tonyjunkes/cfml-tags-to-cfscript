@@ -907,7 +907,7 @@ _**Tags:**_
 ```
 
 _**Script:**_
-```coldfusion cfc
+```coldfusion-cfc
 interface displayname="My Interface" {
 	numeric function myFunction(required string myArgument);
 }

@@ -185,6 +185,14 @@ _**Tags:**_
 <cfset x = x % 1>
 <!--- or --->
 <cfset x = x MOD 1>
+
+<!--- OR --->
+
+<cfset x += 3>
+<cfset x -= 3>
+<cfset x /= 3>
+<cfset x *= 3>
+<cfset x %= 3>
 ```
 
 _**Script:**_

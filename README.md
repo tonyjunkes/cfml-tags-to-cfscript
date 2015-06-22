@@ -44,8 +44,13 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
  - [cfmail / mail.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfmail--mailcfc)
-9. [Functions, Components & Interfaces](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#functions-components--interfaces)
+9. [Interfaces, Components & Functions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#interfaces-components--functions)
  - [cfinterface](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinterface)
+ - [cfcomponent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfcomponent)
+ - [cffunction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cffunction)
+ - [A More Complete Component Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#a-more-complete-component-example)
+ - [Annotations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#annotations)
+ - [Function Expressions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#function-expressions)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -901,7 +906,7 @@ mailService.send();
 </cfscript>
 ```
 
-### Functions, Components & Interfaces
+### Interfaces, Components & Functions
 
 #### cfinterface
 
@@ -919,6 +924,157 @@ _**Script:**_
 interface displayname="My Interface" {
 	numeric function myFunction(required string myArgument);
 }
+```
+
+#### cfcomponent
+
+_**Tags:**_
+```coldfusion
+<cfcomponent displayname="myComponent" output="false">
+	<!--- functions and other values here --->
+</cfcomponent>
+```
+
+_**Script:**_
+```coldfusion-cfc
+component displayname="myComponent" output="false" {
+	// functions and other values here
+}
+```
+
+#### cffunction
+
+_**Tags:**_
+```coldfusion
+<cffunction access="public" returntype="boolean" name="myFunction">
+	<cfargument required="true" type="any" name="myArgument">
+	
+	<!--- Some function bits --->
+	
+	<cfreturn true>
+</cffunction>
+```
+
+_**Script:**_
+```coldfusion-cfc
+public boolean function myFunction(required any myArgument) {
+	// Some function bits
+	
+	return true;
+}
+```
+
+#### A More Complete Component Example
+
+_**Tags:**_
+```coldfusion
+<cfcomponent displayname="Utils" output="false">
+	<cfproperty name="version" type="string" default="0.0.1">
+
+	<cffunction access="public" returntype="string" name="doReverse" hint="I reverse the supplied string">
+		<cfargument required="true" type="string" name="stringToReverse">
+		
+		<cfreturn reverse(arguments.stringToReverse)>
+	</cffunction>
+	
+	<cffunction access="public" returntype="array" name="reverseArrayOrder">
+		<cfargument type="array" name="arrayToReverse" default=["Adobe ColdFusion", "Lucee", "Railo"] hint="I reverse an array's order">
+		
+		<cfset var result = []>
+		<cfset var i = 0>
+		<cfloop index="i" from="#arrayLen(arguments.arrayToReverse)#" to="1" step="-1">
+			<cfset arrayAppend(result, arguments.arrayToReverse[i])>
+		</cfloop>
+		
+		<cfreturn result>
+	</cffunction>
+</cfcomponent>
+```
+
+_**Script:**_
+```coldfusion-cfc
+component displayname="Utils" output="false" {
+	property name="version" type="string" default="0.0.1";
+
+	public string function doReverse(required string stringToReverse)
+		hint="I reverse the supplied string"
+	{
+		return reverse(arguments.stringToReverse);
+	}
+	
+	public array function reverseArrayOrder(array arrayToReverse = ["Adobe ColdFusion", "Lucee", Railo])
+		hint="I reverse an array's order"
+	{
+		var result = [];
+		for (var i = arrayLen(arguments.arrayToReverse); i >= 1; i--) {
+			result.append(arguments.arrayToReverse[i]);
+		}
+		
+		return result;
+	}
+}
+```
+
+#### Annotations
+
+> Information about a script-based component, property or function - it's attributes & arguments can be defined via the annotation syntax.
+
+_**Script:**_
+```coldfusion-cfc
+// Consider this code...
+
+public string function doReverse(required string stringToReverse)
+	hint="I reverse the supplied string"
+{
+	return reverse(arguments.stringToReverse);
+}
+
+// Now with annotations
+
+/**
+* @name doReverse
+* @returnType string
+* @hint I reverse the supplied string
+* @stringToReverse.required true
+* @stringToReverse.type string
+*/
+public string function doReverse(required string stringToReverse) {
+	return reverse(arguments.stringToReverse);
+}
+```
+
+#### Function Expressions
+
+> Consider the tag-based version of the function below. In CFScript, we can instead define a variable with an anonymous function that does the same task.
+
+_**Tags:**_
+```coldfusion
+<cffunction access="public" returntype="numeric" name="adder">
+	<cfargument required="true" type="numeric" name="x">
+	<cfargument required="true" type="numeric" name="y">
+	
+	<cfreturn arguments.x + arguments.y>
+</cffunction>
+
+<cfoutput>#adder(2, 2)#</cfoutput>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+adder = function(x, y) {
+	return x + y;
+};
+
+// You can be more specific with type, scope, required etc.
+adder = function(required numeric x, required numeric y) {
+	return arguments.x + arguments.y;
+};
+
+writeOutput(adder(2, "a")); // this errors
+
+</cfscript>
 ```
 
 ## LICENSE

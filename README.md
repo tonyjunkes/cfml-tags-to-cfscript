@@ -526,7 +526,7 @@ _**Tags:**_
 <!--- Define our query --->
 <cfset platform = ["Adobe ColdFusion", "Railo", "Lucee"]>
 <cfset myQuery = queryNew("")>
-<cfset column = queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform)>
+<cfset queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform)>
 
 <!--- By row index --->
 <cfloop index="i" from="1" to="#myQuery.recordCount#">
@@ -546,7 +546,7 @@ _**Script:**_
 // Define our query
 platform = ["Adobe ColdFusion", "Railo", "Lucee"];
 myQuery = queryNew("");
-column = queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform);
+queryAddColumn(myQuery, "platform", "CF_SQL_VARCHAR", platform);
 
 // By row index
 for (i = 1; i <= myQuery.recordCount; i++) {

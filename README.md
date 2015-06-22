@@ -1067,6 +1067,8 @@ adder = function(x, y) {
 	return x + y;
 };
 
+writeOutput(adder(2, 2));
+
 // You can be more specific with type, scope, required etc.
 adder = function(required numeric x, required numeric y) {
 	return arguments.x + arguments.y;

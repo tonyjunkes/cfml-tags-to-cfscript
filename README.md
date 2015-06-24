@@ -944,7 +944,7 @@ fileMove(expandPath("./myFile.txt"), expandPath("./some/other/path"));
 fileDelete(expandPath("./myFile.txt"));
 
 // File Upload
-fileUpload(expandPath("./destination), form.myFile, "", "makeunique");
+fileUpload(expandPath("./destination"), form.myFile, "", "makeunique");
 
 // File Upload All
 fileUploadAll(expandPath("./destination"), "", "makeunique");

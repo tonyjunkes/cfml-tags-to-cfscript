@@ -30,28 +30,28 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
-7. [General](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general)
+7. [Other Flow Control Tags](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#other-flow-control-tags)
+ - [cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfabort--cfexit)
+8. [General](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general)
  - [cfoutput](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfoutput)
  - [cfsavecontent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfsavecontent)
  - [cfthread](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthread)
  - [cflock](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflock)
  - [cfinclude](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
  - [cflocation](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflocation)
-7. [Debugging](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#debugging)
+9. [Debugging](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#debugging)
  - [cfdump](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdump)
  - [cflog](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflog)
-7. [Flow Control Statements](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#flow-control-statements)
- - [cfabort & cfexit](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfabort--cfexit)
-7. [Database](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#database)
+10. [Database](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#database)
  - [cfquery](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery)
  - [cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftransaction)
-7. [File System Operations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#file-system-operations)
+11. [File System Operations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#file-system-operations)
  - [cfdirectory](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdirectory)
-8. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
+12. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
  - [cfmail / mail.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfmail--mailcfc)
-9. [Interfaces, Components & Functions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#interfaces-components--functions)
+13. [Interfaces, Components & Functions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#interfaces-components--functions)
  - [cfinterface](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinterface)
  - [cfcomponent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfcomponent)
  - [cffunction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cffunction)
@@ -599,6 +599,19 @@ for (row in myQuery) {
 </cfscript>
 ```
 
+### Other Flow Control Tags
+
+#### cfabort & cfexit
+
+_**Tags:**_
+```coldfusion
+<!--- <cfabort> --->
+<cfabort statusError="My error message">
+
+<!--- <cfexit> --->
+<cfexit method="method">
+```
+
 ### General
 
 #### cfoutput
@@ -747,19 +760,6 @@ _**Script:**_
 writeLog(text = "Logging some info.", type = "information", application = "no", file = "myLogFile");
 
 </cfscript>
-```
-
-### Flow Control Statements
-
-#### cfabort & cfexit
-
-_**Tags:**_
-```coldfusion
-<!--- <cfabort> --->
-<cfabort statusError="My error message">
-
-<!--- <cfexit> --->
-<cfexit method="method">
 ```
 
 _**Script:**_

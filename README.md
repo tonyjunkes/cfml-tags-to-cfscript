@@ -48,11 +48,15 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 11. [File System Operations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#file-system-operations)
  - [cfdirectory](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdirectory)
  - [cffile](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cffile)
-12. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
+12. [Image Manipulation](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#image-manipulation)
+ - [cfimage](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfimage)
+13. [Spreadsheet Integration](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#spreadsheet-integration)
+ - [cfspreadsheet](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfspreadsheet)
+14. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
  - [cfmail / mail.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfmail--mailcfc)
-13. [Interfaces, Components & Functions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#interfaces-components--functions)
+15. [Interfaces, Components & Functions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#interfaces-components--functions)
  - [cfinterface](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinterface)
  - [cfcomponent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfcomponent)
  - [cffunction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cffunction)
@@ -951,6 +955,18 @@ fileUploadAll(expandPath("./destination"), "", "makeunique");
 
 </cfscript>
 ```
+
+### Image Manipulation
+
+#### cfimage
+
+> There is <em>quite</em> the lot of image-related functions for <cfimage> that are already decently documented by Adobe. For the sake of avoiding a lengthy bit of repeating, you can check out those functions at the [ColdFusion Wiki: Image Functions](https://wikidocs.adobe.com/wiki/display/coldfusionen/Image+functions).
+
+### Spreadsheet Integration
+
+#### cfspreadsheet
+
+> Much like <cfimage>, <cfspreadsheet> has a fair-sized collection of functions for working with spreadsheets which you can find at the [ColdFusion Wiki: Microsoft Office Integration Functions](https://wikidocs.adobe.com/wiki/display/coldfusionen/Microsoft+office+integration+functions).
 
 ### Tags Implemented as Components
 

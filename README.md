@@ -1066,7 +1066,7 @@ _**Script:**_
 
 // Read
 feedService = new feed();
-feedService.read(source = "http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml", query = "feedQuery", propertied = "feedMetadata");
+feedService.read(source = "http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml", query = "feedQuery", properties = "feedMetadata");
 
 </cfscript>
 ```

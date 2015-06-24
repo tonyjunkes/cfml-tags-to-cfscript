@@ -29,7 +29,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
-7. [Tags in Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-in-script)
+7. [Script Implementations for Specific Tags](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#script-implementations-for-specific-tags)
  - [cfoutput](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfoutput)
  - [cfdump](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdump)
  - [cfinclude](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
@@ -569,9 +569,9 @@ for (row in myQuery) {
 </cfscript>
 ```
 
-### Tags in Script
+### Script Implementations for Specific Tags
 
-> Prior to the [modern application of writing tags in script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#the-modern-implementation-of-tags-to-script), some were implemented for use in CFScript with a different syntax or set of functions. The functions, however, are not restricted to being used in tag or script. 
+> Prior to the [modern application of writing tags in script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#the-modern-implementation-of-tags-to-script), some tags were implemented for use in CFScript with a different syntax or set of functions.
 
 #### cfoutput
 

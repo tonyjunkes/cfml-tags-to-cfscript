@@ -47,6 +47,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftransaction)
 11. [File System Operations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#file-system-operations)
  - [cfdirectory](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdirectory)
+ - [cffile](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cffile)
 12. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
@@ -871,6 +872,82 @@ directoryDelete(expandPath("./my_directory"));
 
 // Directory Rename
 directoryRename(expandPath("./my_directory"), expandPath("./new_driectory"));
+
+</cfscript>
+```
+
+#### cffile
+
+_**Tags:**_
+```coldfusion
+<!--- File Write --->
+<cffile action="write" file="#expandPath("./myFile.txt")#" output="Here's some content for my file.">
+
+<!--- File Append --->
+<cffile action="append" file="#expandPath("./myFile.txt")#" attributes="normal" output="Here's some new content.">
+
+<!--- File Read --->
+<cffile action="read" file="#expandPath("./myFile.txt")#" variable="myFile">
+
+<!--- File Read Binary --->
+<cffile action="readBinary" file="#expandPath("./myImage.jpg")#" variable="myImageBinary">
+
+<!--- File Rename --->
+<cffile action="rename" source="#expandPath("./myFile.txt")#" destination="#expandPath("./myNewFileName.txt")#" attributes="normal">
+
+<!--- File Copy --->
+<cffile action="copy" source="#expandPath("./myFile.txt")#" destination="#expandPath("./some/other/path")#">
+
+<!--- File Move --->
+<cffile action="move" source="#expandPAth("./myFile.txt")#" destination="#expandPath("./some/other/path")#">
+
+<!--- File Delete --->
+<cffile action="delete" file="#expandPath("./myFile.txt")#">
+
+<!--- File Upload --->
+<cffile action="upload" destination="#expandPath("./destination)#" filefield="form.myFile" nameconflict="makeunique">
+
+<!--- File Upload All --->
+<cffile action="uploadall" destination="#expandpath('./destination')#" nameconflict="makeunique">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// File Write
+fileWrite(expandPath("./myFile.txt"), "Here's some content for my file.");
+
+// File Append
+// There is no "fileAppend()" so we access the file and use fileWriteLine()
+myFile = fileOpen(expandPath("./myFile.txt"), "write");
+fileWriteLine(myFile, "Here's some new content.");
+fileClose(myFile);
+
+// File Read
+myFile = fileRead(expandPath("./myFile.txt"));
+
+// File Read Binary
+myImageBinary = fileReadBinary(expandPath("./myImage.jpg"));
+
+// File Rename
+// Since there is no "fileRename()", fileMove() works just as well
+fileMove(expandPath("./myFile.txt"), expandPath("./myNewFileName.txt"));
+
+// File Copy
+fileCopy(expandPath("./myFile.txt"), expandPath("./some/other/path"));
+
+// File Move
+fileMove(expandPath("./myFile.txt"), expandPath("./some/other/path"));
+
+// File Delete
+fileDelete(expandPath("./myFile.txt"));
+
+// File Upload
+fileUpload(expandPath("./destination), form.myFile, "", "makeunique");
+
+// File Upload All
+fileUploadAll(expandpath('./destination'), "", "makeunique");
 
 </cfscript>
 ```

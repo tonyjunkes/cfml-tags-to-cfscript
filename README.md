@@ -867,7 +867,7 @@ myList = directoryList(expandPath("./"), false, "query");
 directoryCreate(expandPath("./new_directory"));
 
 // Directory Delete
-drectoryDelete(expandPath("./my_directory"));
+directoryDelete(expandPath("./my_directory"));
 
 // Directory Rename
 directoryRename(expandPath("./my_directory"), expandPath("./new_driectory"));

@@ -56,6 +56,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
  - [cfmail / mail.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfmail--mailcfc)
+ - [cffeed / feed.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cffeed--feedcfc)
+ - [cfftp / ftp.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfftp--ftpcfc)
 15. [Interfaces, Components & Functions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#interfaces-components--functions)
  - [cfinterface](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinterface)
  - [cfcomponent](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfcomponent)
@@ -1046,6 +1048,58 @@ mailService = new mail(
 );
 // Send
 mailService.send();
+
+</cfscript>
+```
+
+#### cffeed / feed.cfc
+
+_**Tags:**_
+```coldfusion
+<!--- Read --->
+<cffeed action="read" source="http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml" query="feedQuery" properties="feedMetadata">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// Read
+feedService = new feed();
+feedService.read(source = "http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml", query = "feedQuery", propertied = "feedMetadata");
+
+</cfscript>
+```
+
+#### cfftp / ftp.cfc
+
+_**Tags:**_
+```coldfusion
+<!--- Open connection --->
+<cfftp action="open" connection="myConn" username="myUName" password="myPW" server="ftp.server.com" stopOnError="true">
+<!--- Get list of dir --->
+<cfftp action="listdir" connection="myConn" name="filesList" directory="/" stopOnError="true">
+<!--- Close connection --->
+<cfftp action="close" connection="myConn" stopOnError="true">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// Create FTP service and set attributes for connection
+ftpService = new ftp(); 
+ftpService.setConnection("myConn");
+ftpService.setUsername("myUName");
+ftpService.setPassword("myPW");
+ftpService.setServer("ftp.server.com");
+ftpService.setStopOnError(true);
+// Open connection
+ftpService.open();
+// Get list of dir
+fileList = ftpService.listdir(directory = "/", stopOnError = true).getResult();
+// Close connection
+ftpService.close();
 
 </cfscript>
 ```

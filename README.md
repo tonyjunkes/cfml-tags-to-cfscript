@@ -960,13 +960,13 @@ fileUploadAll(expandPath("./destination"), "", "makeunique");
 
 #### cfimage
 
-> There is <em>quite</em> the lot of image-related functions for <cfimage> that are already decently documented by Adobe. For the sake of avoiding a lengthy bit of repeating, you can check out those functions at the [ColdFusion Wiki: Image Functions](https://wikidocs.adobe.com/wiki/display/coldfusionen/Image+functions).
+> There is <em>quite</em> the lot of image-related functions for &lt;cfimage&gt; that are already decently documented by Adobe. For the sake of avoiding a lengthy bit of repeating, you can check out those functions at the [ColdFusion Wiki: Image Functions](https://wikidocs.adobe.com/wiki/display/coldfusionen/Image+functions).
 
 ### Spreadsheet Integration
 
 #### cfspreadsheet
 
-> Much like <cfimage>, <cfspreadsheet> has a fair-sized collection of functions for working with spreadsheets which you can find at the [ColdFusion Wiki: Microsoft Office Integration Functions](https://wikidocs.adobe.com/wiki/display/coldfusionen/Microsoft+office+integration+functions).
+> Much like &lt;cfimage&gt;, &lt;cfspreadsheet&gt; has a fair-sized collection of functions for working with spreadsheets which you can find at the [ColdFusion Wiki: Microsoft Office Integration Functions](https://wikidocs.adobe.com/wiki/display/coldfusionen/Microsoft+office+integration+functions).
 
 ### Tags Implemented as Components
 

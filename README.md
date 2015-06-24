@@ -899,7 +899,7 @@ _**Tags:**_
 <cffile action="copy" source="#expandPath("./myFile.txt")#" destination="#expandPath("./some/other/path")#">
 
 <!--- File Move --->
-<cffile action="move" source="#expandPAth("./myFile.txt")#" destination="#expandPath("./some/other/path")#">
+<cffile action="move" source="#expandPath("./myFile.txt")#" destination="#expandPath("./some/other/path")#">
 
 <!--- File Delete --->
 <cffile action="delete" file="#expandPath("./myFile.txt")#">
@@ -908,7 +908,7 @@ _**Tags:**_
 <cffile action="upload" destination="#expandPath("./destination)#" filefield="form.myFile" nameconflict="makeunique">
 
 <!--- File Upload All --->
-<cffile action="uploadall" destination="#expandpath('./destination')#" nameconflict="makeunique">
+<cffile action="uploadall" destination="#expandPath("./destination")#" nameconflict="makeunique">
 ```
 
 _**Script:**_
@@ -947,7 +947,7 @@ fileDelete(expandPath("./myFile.txt"));
 fileUpload(expandPath("./destination), form.myFile, "", "makeunique");
 
 // File Upload All
-fileUploadAll(expandpath('./destination'), "", "makeunique");
+fileUploadAll(expandPath("./destination"), "", "makeunique");
 
 </cfscript>
 ```

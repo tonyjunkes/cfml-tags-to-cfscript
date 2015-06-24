@@ -29,7 +29,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Struct Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#struct-loop)
  - [List Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#list-loop)
  - [Query Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#query-loop)
-7. [General / Misc Tags to Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general--misc-tags-to-script)
+7. [Tags in Script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-in-script)
  - [cfoutput](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfoutput)
  - [cfdump](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdump)
  - [cfinclude](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinclude)
@@ -42,6 +42,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [cfthrow & cfrethrow](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthrow--cfrethrow)
  - [cflog](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cflog)
  - [cftransaction](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftransaction)
+ - [cfdirectory](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfdirectory)
 8. [Tags Implemented as Components](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-implemented-as-components)
  - [cfquery / query.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfquery--querycfc)
  - [cfhttp / http.cfc](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfhttp--httpcfc)
@@ -568,7 +569,9 @@ for (row in myQuery) {
 </cfscript>
 ```
 
-### General / Misc Tags to Script
+### Tags in Script
+
+> Prior to the [modern application of writing tags in script](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#the-modern-implementation-of-tags-to-script), some were implemented for use in CFScript with a different syntax or set of functions. The functions, however, are not restricted to being used in tag or script. 
 
 #### cfoutput
 
@@ -822,6 +825,43 @@ transaction {
 		transaction action="rollback";
 	}
 }
+
+</cfscript>
+```
+
+
+#### cfdirectory
+
+_**Tags:**_
+```coldfusion
+<!--- Directory List --->
+<cfdirectory action="list" directory="#expandPath("./")#" recurse="false" name="myList">
+
+<!--- Directory Create --->
+<cfdirectory action="create" directory="#expandPath("./new_directory")#">
+
+<!--- Directory Delete --->
+<cfdirectory action="delete" directory="#expandPath("./my_directory")#">
+
+<!--- Directory Rename --->
+<cfdirectory action="rename" directory="#expandPath("./my_directory")#" newdirectory="#expandPath("./new_directory")#">
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+// Directory List
+myList = directoryList(expandPath("./"), false, "query");
+
+// Directory Create
+directoryCreate(expandPath("./new_directory"));
+
+// Directory Delete
+drectoryDelete(expandPath("./my_directory"));
+
+// Directory Rename
+directoryRename(expandPath("./my_directory"), expandPath("./new_driectory"));
 
 </cfscript>
 ```

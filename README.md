@@ -68,7 +68,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 15. [Real World Conversions By Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#real-world-conversions-by-example)
  - [Example 1](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-1)
  - [Example 2](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-2)
- - [Example 2](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-3)
+ - [Example 3](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-3)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 

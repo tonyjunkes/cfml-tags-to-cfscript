@@ -1447,5 +1447,83 @@ public numeric function utcOffsetToMinutes(required string offset) {
 </cfscript>
 ```
 
+> Here's another one from CFLib.org - [_addRemoveDebuggingIPAddress() by Qasim Rasheed_](http://www.cflib.org/udf/addRemoveDebuggingIPAddress)
+
+_**Tags:**_
+```coldfusion
+<!---
+ This function will either add or remove an IP address to the list of debugging ip addresses if you do not have an administrator access.
+ 
+ @param ipAddress 	 IP Address (Required)
+ @param action 	 Add or Remove. Defaults to Add. (Optional)
+ @return Returns a list of IP addresses. 
+ @author Qasim Rasheed (qasim_1976@yahoo.com) 
+ @version 1, February 17, 2004 
+--->
+<cffunction name="addRemoveDebuggingIPAddress" output="false" returnType="string">
+	<cfargument name="IPaddress" type="string" required="Yes" />
+	<cfargument name="action" type="string" default="Add" />
+	<cfscript>
+		var factory = CreateObject("Java","coldfusion.server.ServiceFactory");
+		var debuggingService = "";
+	</cfscript>
+	<cflock name="factory_debuggingservice" type="exclusive" timeout="5">
+		<cfset debuggingService = factory.getDebuggingService()>
+		<cfswitch expression="#arguments.action#">
+			<cfcase value="Add">
+				<cfif not listcontainsnocase(debuggingService.iplist.ipList,arguments.IPaddress)>
+					<cfset debuggingService.iplist.ipList = ListAppend(debuggingService.iplist.ipList,arguments.IPaddress)>
+				</cfif>
+			</cfcase>
+			<cfcase value="Remove">
+				<cfif listcontainsnocase(debuggingService.iplist.ipList,arguments.IPaddress)>
+					<cfset debuggingService.iplist.ipList = ListDeleteAt(debuggingService.iplist.ipList,ListFindNoCase(debuggingService.iplist.ipList,arguments.IPaddress))>
+				</cfif>
+			</cfcase>
+		</cfswitch>
+		<cfreturn debuggingService.iplist.ipList />
+	</cflock>
+</cffunction>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+/**
+* @hint This function will either add or remove an IP address to the list of debugging ip addresses if you do not have an administrator access.
+* @param ipAddress IP Address (Required)
+* @param action Add or Remove. Defaults to Add. (Optional)
+* @return Returns a list of IP addresses. 
+* @author Qasim Rasheed (qasim_1976@yahoo.com) 
+* @version 1, February 17, 2004 
+*/
+public string function addRemoveDebuggingIPAddress(required string IPaddress, string action = "Add")
+	output="false"
+{
+	var factory = createObject("java","coldfusion.server.ServiceFactory");
+	var debuggingService = "";
+	lock name="factory_debuggingservice" type="exclusive" timeout="5" {
+		debuggingService = factory.getDebuggingService();
+		switch(arguments.action) {
+			case "Add":
+				if (!listcontainsnocase(debuggingService.iplist.ipList,arguments.IPaddress)) {
+					debuggingService.iplist.ipList = listAppend(debuggingService.iplist.ipList, arguments.IPaddress);
+				}
+			break;
+			case "Remove":
+				if (listContainsNoCase(debuggingService.iplist.ipList, arguments.IPaddress)) {
+					debuggingService.iplist.ipList = listDeleteAt(debuggingService.iplist.ipList, listFindNoCase(debuggingService.iplist.ipList, arguments.IPaddress));
+				}
+			break;
+		}
+		
+		return debuggingService.iplist.ipList;
+	}
+}
+
+</cfscript>
+```
+
 ## LICENSE
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">CFML Tag to Script Conversions</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://tonyjunkes.com/leave-your-tags-at-the-door-cfml-tag-to-script-conversions" property="cc:attributionName" rel="cc:attributionURL">Tony Junkes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.

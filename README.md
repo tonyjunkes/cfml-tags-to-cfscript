@@ -1295,23 +1295,22 @@ _**Script:**_
 ```coldfusion-cfc
 // Consider this code...
 
-public string function doReverse(required string stringToReverse)
-	hint="I reverse the supplied string"
+public numeric function adder(required numeric x, required numeric y)
+	hint="I add things"
 {
-	return reverse(arguments.stringToReverse);
+	return arguments.x + arguments.y;
 }
 
 // Now with annotations
 
 /**
-* @name doReverse
-* @returnType string
-* @hint I reverse the supplied string
-* @stringToReverse.required true
-* @stringToReverse.type string
+* @returnType numeric
+* @hint I add things
+* @x.required true
+* @y.type string
 */
-public string function doReverse(required string stringToReverse) {
-	return reverse(arguments.stringToReverse);
+public function adder(required numeric x, required numeric y) {
+	return arguments.x + arguments.y;
 }
 ```
 

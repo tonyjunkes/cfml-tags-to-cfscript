@@ -185,22 +185,33 @@ writeDump(y);
 
 _**Tags:**_
 ```coldfusion
+<!--- Increment --->
 <cfset x = 1>
-<cfset y = x + 1>
-<cfset z = x - 1>
-<cfdump var="#x#, #y#, #z#">
+<cfset y = x++>
+<cfset z = ++x> <!--- or z = x + 1 --->
+<cfdump var="#[x, y, z]#">
+
+<!--- Decrement --->
+<cfset x = 1>
+<cfset a = x-->
+<cfset b = --x> <!--- or b = x - 1 --->
+<cfdump var="#[a, b]#">
 ```
 
 _**Script:**_
 ```coldfusion
 <cfscript>
 
+// Increment
 x = 1;
-y = ++x; // y = x + 1;
-// y = x++ -> y = 1, x = 2
-z = --x; // z = x - 1;
-// z = x--; -> z = 1, x = 0
-writeDump("#x#, #y#, #z#");
+y = x++;
+z = ++x // or z = x + 1
+writeDump([x, y, z]);
+
+// Decrement
+a = x--;
+b = --x // or b = x - 1
+writeDump([a, b]);
 
 </cfscript>
 ```
@@ -212,28 +223,28 @@ _**Tags:**_
 <cfset x = 0>
 <cfset y = "string">
 
-<cfset x = x + 10>
-<!--- or x += 10 --->
+<cfset x += 10>
+<!--- or x = x + 10 --->
 <cfdump var="#x#">
 
-<cfset x = x - 8>
-<!--- or x -= 8 --->
+<cfset x -= 8>
+<!--- or x = x - 8 --->
 <cfdump var="#x#">
 
-<cfset x = x / 6>
-<!--- or x /= 6 --->
+<cfset x /= 6>
+<!--- or x = x / 6 --->
 <cfdump var="#x#">
 
-<cfset x = x * 4>
-<!--- or x *= 4 --->
+<cfset x *= 4>
+<!--- or x = x * 4 --->
 <cfdump var="#x#">
 
-<cfset x = x % 2>
-<!--- or x = x MOD 2 or x %= 2 --->
+<cfset x %= 2>
+<!--- or x = x MOD 2 or x = x % 2 --->
 <cfdump var="#x#">
 
-<cfset y = y & "s">
-<!--- or y &= "s" --->
+<cfset y &= "s">
+<!--- or y = y & "s" --->
 <cfdump var="#y#">
 ```
 
@@ -241,16 +252,32 @@ _**Script:**_
 ```coldfusion
 <cfscript>
 
-// x = x + 3;
-x += 3;
-// x = x - 3;
-x -= 3;
-// x = x / 3;
-x /= 3;
-// x = x * 3;
-x *= 3;
-//x = x % 3;
-x % 3;
+x = 0;
+y = "string";
+
+x += 10;
+// or x = x + 10
+writeDump(x);
+
+x -= 8;
+// or x = x - 8
+writeDump(x);
+
+x /= 6;
+// or x = x / 6
+writeDump(x);
+
+x *= 4;
+// or x = x * 4
+writeDump(x);
+
+x %= 2;
+// or x = x MOD 2 or x = x % 2
+writeDump(x);
+
+<cfset y &= "s">
+// or y = y & "s"
+writeDump(x);
 
 </cfscript>
 ```
@@ -259,18 +286,26 @@ x % 3;
 
 _**Tags:**_
 ```coldfusion
-<cfset NOT x>
-<cfset x EQ 1 AND y EQ 2>
-<cfset x EQ 1 OR y EQ 2>
+<cfset x = y = 1>
+<cfset z = [
+	NOT x,
+	x EQ 1 AND y EQ 2,
+	x EQ 1 OR y EQ 2
+]>
+<cfdump var="#z#">
 ```
 
 _**Script:**_
 ```coldfusion
 <cfscript>
 
-!x;
-x == 1 && y == 2;
-x == 1 || y == 1;
+x = y = 1;
+z = [
+	!x,
+	x == 1 && y == 2,
+	x == 1 || y == 2
+];
+writeDump(z);
 
 </cfscript>
 ```
@@ -280,11 +315,13 @@ x == 1 || y == 1;
 _**Tags:**_
 ```coldfusion
 <!--- Ternary --->
-<cfset x = "">
+<cfset x = "Tags">
 <cfset y = len(x) ? x : "something else">
+<cfdump var="#y#">
 
 <!--- Null-Coalescing --->
 <cfset y = z ?: "something else">
+<cfdump var="#y#">
 ```
 
 _**Script:**_
@@ -292,11 +329,13 @@ _**Script:**_
 <cfscript>
 
 // Ternary
-x = "";
+x = "CFScript";
 y = len(x) ? x : "something else";
+writeDump(y);
 
 // Null-Coalescing
 y = z ?: "something else";
+writeDump(y);
 
 </cfscript>
 ```

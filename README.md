@@ -21,7 +21,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
 5. [Conditions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#conditions)
  - [cfif / cfelseif / cfelse](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfif--cfelseif--cfelse)
- - [cfwitch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfswitch)
+ - [cfswitch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfswitch)
  - [cftry / cfcatch / cffinally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftry--cfcatch--cffinally)
  - [cfthrow & cfrethrow](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthrow--cfrethrow)
 6. [Iterations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#iterations)
@@ -399,7 +399,7 @@ _**Script:**_
 <cfscript>
 
 fruit = "";
-switch (fruit) {
+switch(fruit) {
 	case "Apple":
 		writeOutput("I like apples!");
 	break;

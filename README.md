@@ -149,12 +149,15 @@ page = "Title: " & title & ", " & "Number: " & views;
 _**Tags:**_
 ```coldfusion
 <cfset x = 1>
-<cfset y = x EQ 1>
-<cfset y = x NEQ 1>
-<cfset y = x LT 1>
-<cfset y = x GT 1>
-<cfset y = x LTE 1>
-<cfset y = x GTE 1>
+<cfset y = [
+	x EQ 1,
+	x NEQ 1,
+	x LT 1,
+	x GT 1,
+	x LTE 1,
+	x GTE 1
+]>
+<cfdump var="#y#">
 ```
 
 _**Script:**_
@@ -165,12 +168,15 @@ _**Script:**_
 // There are also these equivalents
 
 x = 1;
-y = x == 1;
-y = x != 1;
-y = x < 1;
-y = x > 1;
-y = x <= 1;
-y = x >= 1;
+y = [
+	x == 1,
+	x != 1,
+	x < 1,
+	x > 1,
+	x <= 1,
+	x >= 1
+];
+writeDump(y);
 
 </cfscript>
 ```
@@ -179,16 +185,22 @@ y = x >= 1;
 
 _**Tags:**_
 ```coldfusion
-<cfset x = x + 1>
-<cfset x = x - 1>
+<cfset x = 1>
+<cfset y = x + 1>
+<cfset z = x - 1>
+<cfdump var="#x#, #y#, #z#">
 ```
 
 _**Script:**_
 ```coldfusion
 <cfscript>
 
-x = x++; // x = x + 1;
-x = x--; // x = x - 1;
+x = 1;
+y = ++x; // y = x + 1;
+// y = x++ -> y = 1, x = 2
+z = --x; // z = x - 1;
+// z = x--; -> z = 1, x = 0
+writeDump("#x#, #y#, #z#");
 
 </cfscript>
 ```
@@ -197,21 +209,32 @@ x = x--; // x = x - 1;
 
 _**Tags:**_
 ```coldfusion
-<cfset x = x + 3>
-<cfset x = x - 3>
-<cfset x = x / 3>
-<cfset x = x * 3>
-<cfset x = x % 1>
-<!--- or --->
-<cfset x = x MOD 1>
+<cfset x = 0>
+<cfset y = "string">
 
-<!--- OR --->
+<cfset x = x + 10>
+<!--- or x += 10 --->
+<cfdump var="#x#">
 
-<cfset x += 3>
-<cfset x -= 3>
-<cfset x /= 3>
-<cfset x *= 3>
-<cfset x %= 3>
+<cfset x = x - 8>
+<!--- or x -= 8 --->
+<cfdump var="#x#">
+
+<cfset x = x / 6>
+<!--- or x /= 6 --->
+<cfdump var="#x#">
+
+<cfset x = x * 4>
+<!--- or x *= 4 --->
+<cfdump var="#x#">
+
+<cfset x = x % 2>
+<!--- or x = x MOD 2 or x %= 2 --->
+<cfdump var="#x#">
+
+<cfset y = y & "s">
+<!--- or y &= "s" --->
+<cfdump var="#y#">
 ```
 
 _**Script:**_

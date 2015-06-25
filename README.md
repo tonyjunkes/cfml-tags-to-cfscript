@@ -65,6 +65,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [A More Complete Component Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#a-more-complete-component-example)
  - [Annotations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#annotations)
  - [Function Expressions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#function-expressions)
+15. [Real World Conversions By Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#real-world-conversions-by-example)
+ - [cfinterface](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfinterface)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -1346,6 +1348,102 @@ adder = function(required numeric x, required numeric y) {
 };
 
 writeOutput(adder(2, "a")); // this errors
+
+</cfscript>
+```
+
+### Real World Conversions By Example
+
+##### The below examples are pieces of code found from online/offline sources. Anything with a name on it will be given credit and/or linked accordingly. If you see your code as an example and you don't want it here, LET ME KNOW! Cheers. - @cfchef
+
+> Here's a function, written in tags, picked out from CFLib.org - [_utcOffsetToMinutes() by Mosh Teitelbaum_](http://www.cflib.org/udf/utcOffsetToMinutes)
+
+_**Tags:**_
+```coldfusion
+<!---
+Converts UTC Offset to minutes.
+
+@param offset The formatted UTC offset to be converted to minutes. (Required)
+@return Returns a number.
+@author Mosh Teitelbaum (mosh.teitelbaum@evoch.com)
+@version 1, 1/8/2015
+--->
+
+<cffunction name="utcOffsetToMinutes" returntype="numeric" output="no" description="Converts UTC Offset to minutes.">
+	<cfargument name="offset" type="string" required="yes" hint="The formatted UTC offset to be converted to minutes.">
+
+	<!--- Initialize local variables --->
+	<cfset var h = 0>	<!--- hours --->
+	<cfset var m = 0>	<!--- minutes --->
+	<cfset var s = 1>	<!--- sign --->
+	<cfset var str = ReReplaceNoCase(arguments.offset, "[^-:0-9]", "", "ALL")>	<!--- offset with non-important characters removed --->
+
+	<!--- If first character is "-", adjust sign --->
+	<cfif Compare(Left(str, 1), "-") EQ 0>
+		<cfset s = -1>
+		<cfset str = Right(str, Len(str) - 1)>
+	</cfif>
+
+	<!--- Determine number of hours and minutes --->
+	<cfif ListLen(str, ":") EQ 2>
+		<cfset h = ListFirst(str, ":")>
+		<cfset m = ListLast(str, ":")>
+	<cfelseif Len(str) EQ 2>
+		<cfset h = str>
+	<cfelseif Len(str) EQ 3>
+		<cfset h = Left(str, 1)>
+		<cfset m = Right(str, 2)>
+	<cfelseif Len(str) EQ 4>
+		<cfset h = Left(str, 2)>
+		<cfset m = Right(str, 2)>
+	</cfif>
+
+	<!--- Return number of minutes --->
+	<cfreturn s * ((h * 60) + m)>
+</cffunction>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+/**
+* @hint Converts UTC Offset to minutes.
+* @param offset The formatted UTC offset to be converted to minutes. (Required)
+* @return Returns a number.
+* @author Mosh Teitelbaum (mosh.teitelbaum@evoch.com)
+* @version 1, 1/8/2015
+*/
+public numeric function utcOffsetToMinutes(required string offset) {
+	// Initialize local variables
+	var h = 0; // hours
+	var m = 0; // minutes
+	var s = 1; // sign
+	var str = reReplaceNoCase(arguments.offset, "[^-:0-9]", "", "ALL"); // offset with non-important characters removed
+
+	// If first character is "-", adjust sign
+	if (compare(left(str, 1), "-") == 0) {
+		s = -1;
+		str = Right(str, len(str) - 1);
+	}
+
+	// Determine number of hours and minutes
+	if (listLen(str, ":") == 2) {
+		h = listFirst(str, ":");
+		m = listLast(str, ":");
+	} else if (len(str) == 2) {
+		h = str;
+	} else if (len(str) == 3) {
+		h = left(str, 1);
+		m = right(str, 2);
+	} else if (len(str) == 4) {
+		h = left(str, 2);
+		m = right(str, 2);
+	}
+
+	// Return number of minutes
+	return s * ((h * 60) + m);
+}
 
 </cfscript>
 ```

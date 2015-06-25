@@ -117,8 +117,8 @@ _**Tags:**_
 <cfparam name="views" type="numeric" default=0>
 
 <!--- Regular assignment --->
-<cfset title = "Tags";
-<cfset views = 1;
+<cfset title = "Tags">
+<cfset views = 1>
 <cfset page = "Title: #title#, Number: #views#">
 ```
 

@@ -423,7 +423,7 @@ _**Tags:**_
 <cftry>
 	<cfset x = y + z>
 	<cfcatch type="any">
-		<cfdump var="#cfcatch#">
+		<cfoutput>#cfcatch.message#</cfoutput>
 	</cfcatch>
 	<cffinally>
 		<cfoutput>Finally at the end.</cfoutput>
@@ -439,7 +439,7 @@ try {
 	x = y + z;
 }
 catch(any e) {
-	writeDump(e);
+	writeOutput(e.message);
 }
 finally {
 	writeOutput("Finally at the end");

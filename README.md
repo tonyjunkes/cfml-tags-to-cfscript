@@ -66,6 +66,8 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Annotations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#annotations)
  - [Function Expressions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#function-expressions)
 15. [Real World Conversions By Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#real-world-conversions-by-example)
+ - [Example 1](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-1)
+ - [Example 2](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-2)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -1355,6 +1357,8 @@ writeOutput(adder(2, "a")); // this errors
 
 ##### The below examples are pieces of code found from online/offline sources. Anything with a name on it will be given credit and/or linked accordingly. If you see your code as an example and you don't want it here, LET ME KNOW! Cheers. - @cfchef
 
+#### Example 1
+
 > Here's a function, written in tags, picked out from CFLib.org - [_utcOffsetToMinutes() by Mosh Teitelbaum_](http://www.cflib.org/udf/utcOffsetToMinutes)
 
 _**Tags:**_
@@ -1446,6 +1450,8 @@ public numeric function utcOffsetToMinutes(required string offset) {
 
 </cfscript>
 ```
+
+#### Example 2
 
 > Here's another one from CFLib.org - [_addRemoveDebuggingIPAddress() by Qasim Rasheed_](http://www.cflib.org/udf/addRemoveDebuggingIPAddress)
 

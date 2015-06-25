@@ -189,13 +189,13 @@ _**Tags:**_
 <cfset x = 1>
 <cfset y = x++>
 <cfset z = ++x> <!--- or z = x + 1 --->
-<cfdump var="&#35;[x, y, z]&#35;">
+<cfdump var="#x#, #y#, #z#">
 
 <!--- Decrement --->
 <cfset x = 1>
 <cfset a = x-->
 <cfset b = --x> <!--- or b = x - 1 --->
-<cfdump var="&#35;[a, b]&#35;">
+<cfdump var="#a#, #b#">
 ```
 
 _**Script:**_
@@ -206,12 +206,12 @@ _**Script:**_
 x = 1;
 y = x++;
 z = ++x // or z = x + 1
-writeDump([x, y, z]);
+writeDump("#x#, #y#, #z#");
 
 // Decrement
 a = x--;
 b = --x // or b = x - 1
-writeDump([a, b]);
+writeDump("#a#, #b#");
 
 </cfscript>
 ```

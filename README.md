@@ -189,13 +189,13 @@ _**Tags:**_
 <cfset x = 1>
 <cfset y = x++>
 <cfset z = ++x> <!--- or z = x + 1 --->
-<cfdump var="#[x, y, z]#">
+<cfdump var="&#35;[x, y, z]&#35;">
 
 <!--- Decrement --->
 <cfset x = 1>
 <cfset a = x-->
 <cfset b = --x> <!--- or b = x - 1 --->
-<cfdump var="#[a, b]#">
+<cfdump var="&#35;[a, b]&#35;">
 ```
 
 _**Script:**_

@@ -1310,10 +1310,6 @@ public numeric function adder(required numeric x, required numeric y)
 /**
 * @returnType numeric
 * @hint I add things
-* @x.required true
-* @x.type numeric
-* @y.required true
-* @y.type numeric
 */
 public function adder(required numeric x, required numeric y) {
 	return arguments.x + arguments.y;

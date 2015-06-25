@@ -65,10 +65,13 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [A More Complete Component Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#a-more-complete-component-example)
  - [Annotations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#annotations)
  - [Function Expressions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#function-expressions)
-15. [Real World Conversions By Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#real-world-conversions-by-example)
+16. [Real World Conversions By Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#real-world-conversions-by-example)
  - [Example 1](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-1)
  - [Example 2](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-2)
  - [Example 3](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-3)
+17. [Tags Have Their Place](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-have-their-place)
+ - [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view)
+ - [Building View Code on the Logic Side](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#building-view-code-on-the-logic-side)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -1620,6 +1623,119 @@ public void function collectFiles(required string extensions, required string de
 
 </cfscript>
 ```
+
+### Tags Have Their Place
+
+#### Keeping Tags in the View
+
+> The modern CFML world has evolved with various flavors and mixes of Model View Controller (MVC) & Object Oriented Programming (OOP) practices. While procedural coding might have a place, larger applications often call for a more organized, structured collection of functions and how and where they display their results. As opposed to being <em>all</em> in one file, database calls should reside in their own file (Model), structuring/manipulation of that data can be built in a seperate file based on user supplied variables (Controller) and then that structured data is formatted with HTML for display (View).
+
+> From a general standpoint, the view layer should be the home for basic tag functions to help iterate and organize received result data; to be married with your HTML and displayed to the user. Simple tags such as `&lt;cfset&gt;`, `&lt;cfparam&gt;`, `&lt;cfoutput&gt;`, `&lt;cfif&gt;` & `&lt;cfloop&gt;`. With the involvement of HTML in the view, tags make sense as they work with the flow of the layout; leaving your Model and Controllers to be uncluttered and have a clean flow of their own in CFScript. It might be a matter of opinion but you will eventually grow to find this separation quite refreshing visually and mentally when scanning through large blocks of logic vs display code.
+
+**Consider this general mock breakdown of code presenting blog posts to the user. This would normally be handled more effectively & efficiently in a MVC framework like [FW/1](http://framework-one.github.io/) or [Coldbox](http://www.coldbox.org/).
+
+_**Model: BlogService.cfc**_
+
+```coldfusion-cfc
+/**
+* @hint I contain blog related utilities
+*/
+component displayname="Blog Service"
+	output="false"
+{
+	/**
+	* @hint I intiate the service object by setting the datasource
+	*/
+	public BlogService function init(required string dsn) {
+		variables.dsn = arguments.dsn;
+		
+		return this;
+	}
+	
+	/**
+	* @hint I return a query of blog posts
+	*/
+	public query function getPosts() {
+		var qry = new Query();
+		qry.setDatasource(variables.dsn);
+		qry.setSQL("
+			SELECT postId, postTitle, postBody, author, publishDate
+			FROM posts
+			ORDER BY postId DESC
+		");
+		
+		return qry.execute().getResult();
+	}
+}
+```
+
+_**Controller: BlogController.cfc**_
+
+```coldfusion-cfc
+/**
+* @hint I receive user request and translate them into response
+*/
+component displayname="Blog Controller"
+	output="false"
+{
+	/**
+	* @hint I initiate the BlogController and call in all required objects
+	*/
+	public BlogController funtion init() {
+		var DataService = createObject("component", "model.services.DataService").init();
+		variables.BlogService = createObject("component", "model.services.BlogService").init(DataService.getDSN());
+	}
+	
+	/**
+	* @hint I return a formatted collection of blog posts for display
+	*/
+	public struct function posts() {
+		// Define out request context struct for holding data to pass on to the view
+		var rc = {};
+		var postQry = variables.BlogService.getPosts();
+		// Let's make a friendlier collection as a array of structs of the data
+		rc.posts = [];
+		if (postQuery.recordCount) {
+			for (var post in postQry) {
+				arrayAppend(rc.posts, {
+					title: post.postTitle,
+					body: post.postBody,
+					author: post.author,
+					published: post.publishDate
+				});
+			}
+		}
+		
+		return rc;
+	}
+}
+```
+
+_**View: posts.cfm**_
+
+```coldfusion
+<cfparam name="rc.posts" default="#[]#">
+
+<cfset BlogController = createObject("component", "blog.controllers.BlogController").init()>
+<cfset rc.posts = BlogController.posts()>
+
+<h1>Welcome to my Blog!</h1>
+<cfif arrayLen(rc.posts)>
+	<div class="post-content">
+	<cfoutput>
+	<cfloop index="post" array="#rc.posts#">
+		<h2>#post.title#</h2>
+		<div class="post-meta">Published on: #post.published# By: #post.author#</div>
+		<div class="post-body">#post.body#</div>
+	</cfloop>
+	</cfoutput>
+	</div>
+<cfelse>
+	<h3>No posts to display!</h3>
+</cfif>
+```
+
+#### Building View Code on the Logic Side
 
 ## LICENSE
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">CFML Tag to Script Conversions</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://tonyjunkes.com/leave-your-tags-at-the-door-cfml-tag-to-script-conversions" property="cc:attributionName" rel="cc:attributionURL">Tony Junkes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.

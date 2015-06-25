@@ -68,6 +68,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 15. [Real World Conversions By Example](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#real-world-conversions-by-example)
  - [Example 1](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-1)
  - [Example 2](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-2)
+ - [Example 2](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-3)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -1596,11 +1597,7 @@ _**Script:**_
 * @author Steven Ross (steven.ross@zerium.com) - v2 by Raymond Camden. I just cleaned up the var statements.
 * @version 2, April 7, 2006
 */
-public void function collectFiles(
-	required string extensions,
-	required string destinationPath,
-	required string sourcePath
-) {
+public void function collectFiles(required string extensions, required string destinationPath, required string sourcePath) {
 	var root = arguments.sourcePath;
 	if (!directoryExists(arguments.sourcePath)) {
 		throw(

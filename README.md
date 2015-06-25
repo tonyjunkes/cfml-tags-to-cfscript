@@ -20,9 +20,9 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Boolean](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#boolean)
  - [Ternary & Null-Coalescing](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#ternary--null-coalescing)
 5. [Conditions](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#conditions)
- - [If / Else If / Else](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#if--else-if--else)
- - [Switch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#switch)
- - [Try / Catch / Finally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#try--catch--finally)
+ - [cfif / cfelseif / cfelse](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfif--cfelseif--cfelse)
+ - [cfwitch](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfswitch)
+ - [cftry / cfcatch / cffinally](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cftry--cfcatch--cffinally)
  - [cfthrow & cfrethrow](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#cfthrow--cfrethrow)
 6. [Iterations](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#iterations)
  - [General Purpose Loop](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#general-purpose-loop)
@@ -342,7 +342,7 @@ writeDump(y);
 
 ### Conditions
 
-#### If / Else If / Else
+#### cfif / cfelseif / cfelse
 
 _**Tags:**_
 ```coldfusion
@@ -372,23 +372,23 @@ if (count > 20) {
 </cfscript>
 ```
 
-#### Switch
+#### cfswitch
 
 _**Tags:**_
 ```coldfusion
 <cfset fruit = "">
 <cfswitch expression="#fruit#">
     <cfcase value="Apple">
-        <!--- Some apple stuff --->
+        <cfoutput>I like apples!</cfoutput>
     </cfcase>
     <cfcase value="Orange">
-        <!--- Some orange stuff --->
+        <cfoutput>I like oranges!</cfoutput>
     </cfcase>
     <cfcase value="Kiwi">
-        <!--- Some kiwi stuff --->
+        <cfoutput>I like kiwi!</cfoutput>
     </cfcase>
     <cfdefaultcase>
-        <!--- Some default stuff --->
+        <cfoutput>Fruit, what fruit?</cfoutput>
     </cfdefaultcase>
 </cfswitch>
 ```
@@ -400,23 +400,23 @@ _**Script:**_
 fruit = "";
 switch (fruit) {
 	case "Apple":
-		// some apple stuff
+		writeOutput("I like apples!");
 	break;
 	case "Orange":
-		// some apple stuff
+		writeOutput("I like oranges!");
 	break;
 	case "Kiwi":
-		// some kiwi stuff
+		writeOutput("I like kiwi!");
 	break;
 	default:
-		// some default stuff
+		writeOutput("Fruit, what fruit?");
 	break;
 }
 
 </cfscript>
 ```
 
-#### Try / Catch / Finally
+#### cftry / cfcatch / cffinally
 
 _**Tags:**_
 ```coldfusion
@@ -1068,7 +1068,7 @@ _**Tags:**_
 	<cfhttpparam name="q" type="formfield" value="cfml">
 </cfhttp>
 
-<cfdump var="#result.fileContent#">
+<cfdump var="#result#">
 ```
 
 _**Script:**_
@@ -1077,9 +1077,9 @@ _**Script:**_
 
 httpService = new http(method = "GET", charset = "utf-8", url = "https://www.google.com/");
 httpService.addParam(name = "q", type = "formfield", value = "cfml");
-result.send().getPrefix()
+result = httpService.send().getPrefix();
 
-writeDump(result.fileContent);
+writeDump(result);
 
 </cfscript>
 ```
@@ -1119,7 +1119,14 @@ mailService.send();
 _**Tags:**_
 ```coldfusion
 <!--- Read --->
-<cffeed action="read" source="http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml" query="feedQuery" properties="feedMetadata">
+<cffeed
+	name="feed"
+	action="read"
+	source="http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml"
+	query="feedQuery"
+	properties="feedMetadata"
+>
+<cfdump var="#feed#">
 ```
 
 _**Script:**_
@@ -1128,7 +1135,12 @@ _**Script:**_
 
 // Read
 feedService = new feed();
-feedService.read(source = "http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml", query = "feedQuery", properties = "feedMetadata");
+feed = feedService.read(
+	source = "http://feeds.feedburner.com/ColdfusionbloggersorgFeed?format=xml",
+	query = "feedQuery",
+	properties = "feedMetadata"
+);
+writeDump(feed);
 
 </cfscript>
 ```

@@ -1310,7 +1310,9 @@ public numeric function adder(required numeric x, required numeric y)
 * @returnType numeric
 * @hint I add things
 * @x.required true
-* @y.type string
+* @x.type numeric
+* @y.required true
+* @y.type numeric
 */
 public function adder(required numeric x, required numeric y) {
 	return arguments.x + arguments.y;
@@ -1355,7 +1357,7 @@ writeOutput(adder(2, "a")); // this errors
 
 ### Real World Conversions By Example
 
-##### The below examples are pieces of code found from online/offline sources. Anything with a name on it will be given credit and/or linked accordingly. If you see your code as an example and you don't want it here, LET ME KNOW! Cheers. - @cfchef
+> ##### The below examples are pieces of code found from online/offline sources. Anything with a name on it will be given credit and/or linked accordingly. If you see your code as an example and you don't want it here, LET ME KNOW! Cheers. - @cfchef
 
 #### Example 1
 
@@ -1513,7 +1515,7 @@ public string function addRemoveDebuggingIPAddress(required string IPaddress, st
 		debuggingService = factory.getDebuggingService();
 		switch(arguments.action) {
 			case "Add":
-				if (!listcontainsnocase(debuggingService.iplist.ipList,arguments.IPaddress)) {
+				if (!listContainsNoCase(debuggingService.iplist.ipList,arguments.IPaddress)) {
 					debuggingService.iplist.ipList = listAppend(debuggingService.iplist.ipList, arguments.IPaddress);
 				}
 			break;
@@ -1525,6 +1527,101 @@ public string function addRemoveDebuggingIPAddress(required string IPaddress, st
 		}
 		
 		return debuggingService.iplist.ipList;
+	}
+}
+
+</cfscript>
+```
+
+#### Example 3
+
+> Yet another example from CFLib.org - [_collectFiles() by Steven Ross_](http://www.cflib.org/udf/collectFiles)
+
+_**Tags:**_
+```coldfusion
+<!---
+ Scans a directory (or path) for files of a specified extension and then copies them to the path you specify.
+ v2 by Raymond Camden. I just cleaned up the var statements.
+ 
+ @param extensions 	 List of extensions to copy. (Required)
+ @param destinationPath 	 Destination directory. (Required)
+ @param sourcePath 	 Source directory. (Required)
+ @return Returns nothing. 
+ @author Steven Ross (steven.ross@zerium.com) 
+ @version 2, April 7, 2006 
+--->
+<cffunction name="collectFiles" access="public" hint="recurses through a directory and collects the file types you want then outputs to another directory" returnType="void">
+	<cfargument name="extensions" required="true" type="string" hint="The extensions you want to gather up csv (list) format ex:(asp,cfm,jsp) ">
+	<cfargument name="destinationPath" required="true" type="string" hint="absolute path to storage directory">
+	<cfargument name="sourcePath" required="true" type="string" hint="absolute path to source directory">
+	<cfset var root = arguments.sourcePath/>
+	<cfset var i = "">
+	<cfset var absPath = "">
+	<cfset var relativePath = "">
+	<cfset var writeTo = "">
+	<cfset var pathAndFile = "">
+	
+	<cfif not directoryExists(arguments.sourcePath)>
+		<cfthrow message="Source Directory (#arguments.sourcePath#) not found" detail="You didn't pass in a valid source directory, check the path and try again.">
+	</cfif>
+	
+	<cfloop list="#arguments.extensions#" index="i">
+		<cfdirectory name="getFiles" directory="#root#" recurse="true" filter="*.#i#">
+		<cfloop query="getFiles">
+			<cfset absPath = getFiles.directory & "/" />
+			<cfset relativePath = Replace(absPath, root, "", "all") />
+			<cfset writeTo = ARGUMENTS.destinationPath & "/" & relativePath>
+			<cfset pathAndFile = getFiles.directory & "/" & getFiles.name />
+			<cfif not directoryExists(writeTo)>
+				<cfdirectory action="create" directory="#writeTo#">
+				<cffile action="copy" source="#pathAndFile#" destination="#writeTo#">
+			<cfelse>
+				<cffile action="copy" source="#pathAndFile#" destination="#writeTo#">
+			</cfif>
+		</cfloop>
+	</cfloop>
+</cffunction>
+```
+
+_**Script:**_
+```coldfusion
+<cfscript>
+
+/**
+* @hint Scans a directory (or path) for files of a specified extension and then copies them to the path you specify.
+* @param extensions List of extensions to copy. (Required)
+* @param destinationPath Destination directory. (Required)
+* @param sourcePath Source directory. (Required)
+* @return Returns nothing.
+* @author Steven Ross (steven.ross@zerium.com) - v2 by Raymond Camden. I just cleaned up the var statements.
+* @version 2, April 7, 2006
+*/
+public void function collectFiles(
+	required string extensions,
+	required string destinationPath,
+	required string sourcePath
+) {
+	var root = arguments.sourcePath;
+	if (!directoryExists(arguments.sourcePath)) {
+		throw(
+			message = "Source Directory (#arguments.sourcePath#) not found",
+			detail = "You didn't pass in a valid source directory, check the path and try again."
+		);
+	}
+	for (var ext in listToArray(arguments.extensions)) {
+		var list = directoryList(path = root, recurse = true, listinfo = "query", filter = "*.#ext#");
+		for (var dir in list) {
+			var absPath = dir.directory & "/";
+			var relativePath = replace(absPath, root, "", "all");
+			var writeTo = arguments.destinationPath & "/" & relativePath;
+			var pathAndFile = dir.directory & "/" & dir.name;
+			if (!directoryExists(writeTo)) {
+				directoryCreate(writeTo);
+				fileCopy(pathAndFile, writeTo);
+			} else {
+				fileCopy(pathAndFile, writeTo);
+			}
+		}
 	}
 }
 

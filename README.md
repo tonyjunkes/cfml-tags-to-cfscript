@@ -1238,7 +1238,7 @@ _**Tags:**_
 	</cffunction>
 	
 	<cffunction access="public" returntype="array" name="reverseArrayOrder">
-		<cfargument type="array" name="arrayToReverse" default=["Adobe ColdFusion", "Lucee", "Railo"] hint="I reverse an array's order">
+		<cfargument type="array" name="arrayToReverse" default="#["Adobe ColdFusion", "Lucee", "Railo"]#" hint="I reverse an array's order">
 		
 		<cfset var result = []>
 		<cfset var i = 0>

@@ -1430,7 +1430,7 @@ public numeric function utcOffsetToMinutes(required string offset) {
 	// If first character is "-", adjust sign
 	if (compare(left(str, 1), "-") == 0) {
 		s = -1;
-		str = Right(str, len(str) - 1);
+		str = right(str, len(str) - 1);
 	}
 
 	// Determine number of hours and minutes

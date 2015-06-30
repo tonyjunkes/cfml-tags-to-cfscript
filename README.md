@@ -1056,7 +1056,8 @@ _**Script:**_
 ```coldfusion
 <cfscript>
 
-myQuery = new Query().setSQL("
+myQuery = new Query().setDatasource("myDSN");
+myQuery.setSQL("
 	SELECT myCol1, myCol2 FROM myTable
 	WHERE myCol1=:myId
 	ORDER BY myCol1 ASC

@@ -1282,7 +1282,7 @@ component displayname="Utils" output="false" {
 		return reverse(arguments.stringToReverse);
 	}
 	
-	public array function reverseArrayOrder(array arrayToReverse = ["Adobe ColdFusion", "Lucee", Railo])
+	public array function reverseArrayOrder(array arrayToReverse = ["Adobe ColdFusion", "Lucee", "Railo"])
 		hint="I reverse an array's order"
 	{
 		var result = [];

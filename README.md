@@ -1623,7 +1623,7 @@ public void function collectFiles(required string extensions, required string de
 
 > From a general standpoint, the view layer should be the home for basic tag functions to help iterate and organize received result data; to be married with your HTML and displayed to the user. Simple tags such as `<cfset>`, `<cfparam>`, `<cfoutput>`, `<cfif>` & `<cfloop>`. With the involvement of HTML in the view, tags make sense as they work with the flow of the layout; leaving your Model and Controllers to be uncluttered and have a clean flow of their own in CFScript. It might be a matter of opinion but you will eventually grow to find this separation quite refreshing visually and mentally when scanning through large blocks of logic vs display code.
 
-**Consider this general mock breakdown of code presenting blog posts to the user. This would normally be handled more effectively & efficiently in a MVC framework like [FW/1](http://framework-one.github.io/) or [Coldbox](http://www.coldbox.org/).
+Consider this general mock breakdown of code presenting blog posts to the user. This would normally be handled more effectively & efficiently in a MVC framework like [FW/1](http://framework-one.github.io/) or [Coldbox](http://www.coldbox.org/).
 
 _**Model: BlogService.cfc**_
 
@@ -1730,7 +1730,7 @@ _**View: posts.cfm**_
 
 > While we generally want to keep our presentation layer separate from our business logic, as briefly portrayed in [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view), there are some scenarios where we need to do string-building in a function, or similar, to later pass on for an alternate method of viewing in HTML, XML, email etc.
 
-**Consider these examples...**
+Consider these examples. . .
 
 _**Email - Tags**_
 

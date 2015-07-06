@@ -1730,9 +1730,49 @@ _**View: posts.cfm**_
 
 > While we generally want to keep our presentation layer separate from our business logic, as briefly portrayed in [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view), there are some scenarios where we need to do string-building in a function, or similar, to later pass on for an alternate method of viewing in HTML, XML, email etc.
 
-**Consider these code examples...**
+**Consider these examples...**
 
-_**Email**_
+_**Email - Tags**_
+
+```coldfusion
+<!--- Dummy blog post --->
+<cfset post = {
+	title: "My New Blog Post!",
+	slug: "my-new-blog-post",
+	body: "Some body content for the post.",
+	publishDate: "{ts '2015-07-06 18:17:01'}"
+}>
+
+<!--- Build our email --->
+<cfsavecontent variable="mailBody">
+	<cfoutput>
+		<h4>A New Article Has Been Posted @ myblog.com!</h4>
+		<h6>#post.title#</h6>
+		<p><b>Posted on:</b> #dateFormat(post.publishDate, "YYYY/MM/DD")#</p>
+		<p>
+			<cfif len(post.body) > 500>
+				#left(post.body, 500)#. . .
+			<cfelse>
+				#post.body#
+			</cfif>
+		</p>
+		<a href="http://myblog.com/blog/#post.slug#"><b>Read more...</b></a>
+	</cfoutput>
+</cfsavecontent>
+
+<!--- Send email to subscribers --->
+<cfloop item="subscriber" collection="#SubscriberService.getSubscribers()#">
+	<cfmail
+		type="html"
+		to="#subscriber.getEmail()#"
+		from="no-reply@myblog.com"
+		subject="New Blog Post from MyBlog.com"
+		body="#mailBody#"
+	>
+</cfloop>
+```
+
+_**Email - Script**_
 
 ```coldfusion
 <cfscript>
@@ -1765,8 +1805,8 @@ savecontent variable="mailBody" {
 // Send email to subscribers
 for (subscriber in SubscriberService.getSubscribers()) {
 	mailService = new mail(
-		to = subscriber.getEmail(),
 		type = "html",
+		to = subscriber.getEmail(),
 		from = "no-reply@myblog.com",
 		subject = "New Blog Post from MyBlog.com!",
 		body = encodeForHTML(mailBody)

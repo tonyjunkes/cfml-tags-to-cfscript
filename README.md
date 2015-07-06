@@ -519,11 +519,6 @@ _**Tags:**_
 <cfloop index="currentIndex" array="#myArray#">
 	<cfoutput>#currentIndex#</cfoutput>
 </cfloop>
-
-<!--- By arrayEach() --->
-<cfset arrayEach(myArray, function(element, index) {
-	<cfoutput>#element# : #index#</cfoutput>
-})>
 ```
 
 _**Script:**_
@@ -560,14 +555,9 @@ _**Tags:**_
 <cfset myStruct = {name: "Tony", state: "Florida"}>
 
 <!--- By struct --->
-<cfloop item="currentKey" array="#myStruct#">
+<cfloop item="currentKey" collection="#myStruct#">
 	<cfoutput><li>#currentKey# : #myStruct[currentKey]#</li></cfoutput>
 </cfloop>
-
-<!--- By structEach() --->
-<cfset structEach(myStruct, function(key, value) {
-	<cfoutput><li>#key# : #value#</li></cfoutput>
-})>
 ```
 
 _**Script:**_

@@ -71,7 +71,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
  - [Example 3](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#example-3)
 17. [Tags Have Their Place](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#tags-have-their-place)
  - [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view)
- - [Building View Code on the Logic Side](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#building-view-code-on-the-logic-side)
+ - [Building Tag Code on the Script Side](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#building-tag-code-on-the-script-side)
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
@@ -1736,7 +1736,55 @@ _**View: posts.cfm**_
 </cfif>
 ```
 
-#### Building View Code on the Logic Side
+#### Building Tag Code on the Script Side
+
+> While we generally want to keep our presentation layer separate from our business logic, as briefly portrayed in [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view), there are some scenarios where we need to do string-building in a function, or similar, to later pass on for an alernate method of viewing in HTML, XML, an email etc.
+
+**Condiser these code examples...**
+
+_**Email**_
+
+```coldfusion
+<cfscript>
+
+// Dummy blog post
+post = {
+	title: "My New Blog Post!",
+	slug: "my-new-blog-post",
+	body: "Some body content for the post.",
+	publishDate: "{ts '2015-07-06 18:17:01'}"
+};
+
+// Build our email
+savecontent variable="mailBody" {
+	writeOutput('
+		<h4>A New Article Has Been Posted @ myblog.com!</h4>
+		<h6>#post.title#</h6>
+		<p><b>Posted on:</b> #dateFormat(post.publishDate, "YYYY/MM/DD")#</p>
+		<p>
+			if (len(post.body) > 500) {
+				#left(post.body, 500)#. . .
+			} else {
+				#post.body#
+			}
+		</p>
+		<a href="http://myblog.com/blog/#post.slug#"><b>Read more...</b></a>
+	');
+};
+
+// Send email to subscribers
+for (subscriber in SubscriberService.getSubscribers()) {
+	mailService = new mail(
+		to = subscriber.getEmail(),
+		from = "no-reply@myblog.com",
+		subject = "New Blog Post from MyBlog.com!",
+		body = mailBody
+	);
+	mailService.send();
+}
+
+</cfscript>
+```
 
 ## LICENSE
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">CFML Tag to Script Conversions</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://tonyjunkes.com/leave-your-tags-at-the-door-cfml-tag-to-script-conversions" property="cc:attributionName" rel="cc:attributionURL">Tony Junkes</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.

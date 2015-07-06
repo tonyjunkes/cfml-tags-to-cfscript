@@ -75,7 +75,7 @@ The examples in this document are an attempt to demonstrate conversions of CFML 
 
 ### The <em>Modern</em> Implementation of Tags to Script
 
-I want to open with this before diving into the depths of conversions. Adobe ColdFusion 11, Railo 3.2(?) and Lucee 4.5 all offer some kind of full script syntax support (Railo & Lucee sharing the implementation) involving <em>near</em> identical syntax between tag-base and script-base. Adobe ColdFusion 11 rolled it's own variation but Railo and Lucee both support ACF's syntax as of versions 4.2 and 4.5 respectively.
+I want to open with this before diving into the depths of conversions. Adobe ColdFusion 11+, Railo 3.2+(?) and Lucee 4.5+ all offer some kind of full script syntax support (Railo & Lucee sharing the implementation) involving <em>near</em> identical syntax between tag-base and script-base. Adobe ColdFusion 11 rolled it's own variation but Railo and Lucee both support ACF's syntax as of versions 4.2 and 4.5 respectively.
 
 As per [Adam Cameron's CFScript Documentation](https://github.com/adamcameron/cfscript/blob/master/cfscript.md#the-rest):
 > On Railo/Lucee this is a matter of removing the "`<cf`" and the "`>`", and using normal block syntax (curly braces) where the tag-version is a block-oriented tag.
@@ -596,11 +596,6 @@ _**Tags:**_
 <cfloop index="currentIndex" array="#listToArray(myList, ",")#">
 	<cfoutput>#currentIndex#</cfoutput>
 </cfloop>
-
-<!--- By listEach() --->
-<cfset listEach(myList, function(element, index) {
-	<cfoutput>#element# : #index#</cfoutput>
-}, ",")>
 ```
 
 _**Script:**_

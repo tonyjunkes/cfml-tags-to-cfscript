@@ -1738,9 +1738,9 @@ _**View: posts.cfm**_
 
 #### Building Tag Code on the Script Side
 
-> While we generally want to keep our presentation layer separate from our business logic, as briefly portrayed in [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view), there are some scenarios where we need to do string-building in a function, or similar, to later pass on for an alernate method of viewing in HTML, XML, an email etc.
+> While we generally want to keep our presentation layer separate from our business logic, as briefly portrayed in [Keeping Tags in the View](https://github.com/cfchef/cfml-tag-to-script-conversions/blob/master/README.md#keeping-tags-in-the-view), there are some scenarios where we need to do string-building in a function, or similar, to later pass on for an alternate method of viewing in HTML, XML, email etc.
 
-**Condiser these code examples...**
+**Consider these code examples...**
 
 _**Email**_
 
@@ -1776,9 +1776,10 @@ savecontent variable="mailBody" {
 for (subscriber in SubscriberService.getSubscribers()) {
 	mailService = new mail(
 		to = subscriber.getEmail(),
+		type = "html",
 		from = "no-reply@myblog.com",
 		subject = "New Blog Post from MyBlog.com!",
-		body = mailBody
+		body = encodeForHTML(mailBody)
 	);
 	mailService.send();
 }

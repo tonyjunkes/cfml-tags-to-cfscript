@@ -1750,7 +1750,7 @@ _**Email - Tags**_
 		<h6>#post.title#</h6>
 		<p><b>Posted on:</b> #dateFormat(post.publishDate, "YYYY/MM/DD")#</p>
 		<p>
-			<cfif len(post.body) > 500>
+			<cfif len(post.body) GT 500>
 				#left(post.body, 500)#. . .
 			<cfelse>
 				#post.body#
@@ -1812,6 +1812,95 @@ for (subscriber in SubscriberService.getSubscribers()) {
 		body = encodeForHTML(mailBody)
 	);
 	mailService.send();
+}
+
+</cfscript>
+```
+
+
+_**XML Sitemap - Tags**_
+
+```coldfusion
+<!--- Dummy links --->
+<cfset links = [
+	"http://myblog.com",
+	"http://myblog.com/about",
+	"http://myblog.com/blog",
+	"http://myblog.com/blog/my-blog-post"
+]>
+
+<cftry>
+	<!--- Build XML --->
+	<cfsavecontent variable="xmlData">
+	<cfoutput>
+		<?xml version="1.0" encoding="UTF-8"?>
+		<urlset
+			xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+			http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+		<cfloop index="link" array="#links#">
+			<url>
+			  <loc>#link#</loc>
+			  <changefreq>weekly</changefreq>
+			  <priority>0.8</priority>
+			</url>
+		</cfloop>
+		</urlset>
+	</cfoutput>
+	</cfsavecontent>
+	
+	<!--- Write to file --->
+	<cffile action="write" file="#expandPath("./Sitemap.xml")#" output="#xmlData#">
+
+	<cfcatch type="any">
+		<cfoutput>#cfcatch.message#</cfoutput>
+	</cfcatch>
+</cftry>
+```
+
+_**XML Sitemap - Script**_
+
+```coldfusion
+<cfscript>
+
+// Dummy links
+links = [
+	"http://myblog.com",
+	"http://myblog.com/about",
+	"http://myblog.com/blog",
+	"http://myblog.com/blog/my-blog-post"
+];
+
+try {
+	// Build XML
+	savecontent variable="xmlData" {
+		writeOutput('
+			<?xml version="1.0" encoding="UTF-8"?>
+			<urlset
+				xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+				http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+		');
+		for (link in links) {
+			writeOutput('
+				<url>
+				  <loc>#link#</loc>
+				  <changefreq>weekly</changefreq>
+				  <priority>0.8</priority>
+				</url>
+			');
+		}
+		writeOutput('
+			</urlset>
+		');
+	}
+	// Write to file
+	fileWrite(expandPath("./Sitemap.xml"), xmlData);
+}
+catch(any e) {
+	writeOutput(e.message);
 }
 
 </cfscript>

@@ -844,7 +844,7 @@ _**Tags:**_
 ```coldfusion
 <cfquery name="myQuery" datasource="myDSN">
 	SELECT myCol1, myCol2 FROM myTable
-	WHERE myCol1=<cfqueryparam value="#myId#" cfsqlype="cf_sql_integer">
+	WHERE myCol1 = <cfqueryparam value="#myId#" cfsqlype="cf_sql_integer">
 	ORDER BY myCol1 ASC
 </cfquery>
 ```
@@ -857,9 +857,9 @@ _**Script:**_
 
 myQuery = queryExecute(
 	"SELECT myCol1, myCol2 FROM myTable
-	WHERE myCol1=?
+	WHERE myCol1 = :myId
 	ORDER BY myCol1 ASC",
-	{myid: 5},
+	{myId: {value: 5, cfsqltype: "cf_sql_integer"}},
 	{datasource = "myDSN"}
 );
 

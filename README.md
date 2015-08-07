@@ -1670,6 +1670,8 @@ component displayname="Blog Controller"
 	public BlogController funtion init() {
 		var DataService = createObject("component", "model.services.DataService").init();
 		variables.BlogService = createObject("component", "model.services.BlogService").init(DataService.getDSN());
+		
+		return this;
 	}
 	
 	/**

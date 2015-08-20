@@ -282,7 +282,7 @@ x %= 2;
 // or x = x MOD 2 or x = x % 2
 writeDump(x);
 
-<cfset y &= "s">
+y &= "s";
 // or y = y & "s"
 writeDump(x);
 

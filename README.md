@@ -1026,6 +1026,8 @@ fileUploadAll(expandPath("./destination"), "", "makeunique");
 
 ### Tags Implemented as Components
 
+> Note: If you are using ColdFusion 11+, (highly) consider using the script versions over the CFC implementations for example: `cfhttp(result="result", method="post", url="http://mydomain.com");` over `Http.cfc` and `queryExecute()` over `Query.cfc`.
+
 #### cfquery / query.cfc
 
 _**Tags:**_

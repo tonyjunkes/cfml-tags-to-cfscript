@@ -1,5 +1,5 @@
 # CFML Tag to Script Conversions
-#####A collection of examples demonstrating the conversion of CFML code blocks written in tags to CFScript.
+##### A collection of examples demonstrating the conversion of CFML code blocks written in tags to CFScript.
 
 **Currently a work in progress!**
 
